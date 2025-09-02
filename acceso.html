@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<link rel="stylesheet" href="style.css">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso - Pachinko Kitty 🎰</title>
+</head>
+<body>
+
+
+  <nav class="nav-kawaii">
+    <a href="index.html" class="nav-logo">
+      <img src="src/assets/casino-logo.jpg" alt="Pachinko Kitty" class="logo-img">
+      <span>Pachinko Kitty</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="registro.html">Registro</a>
+      <a href="acceso.html" class="active">Acceso</a>
+      <a href="informacion.html">Info App</a>
+      <a href="ruleta-info.html">Reglas Ruleta</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="ruleta.html">Mesa de Ruleta</a>
+    </div>
+  </nav>
+
+
+  <main>
+    <section class="card-kawaii">
+      <h1>Acceso al Casino 🎰</h1>
+      <p>¡Bienvenido de vuelta! Ingresa y diviértete</p>
+
+      <form action="perfil.html" method="get" class="form-layout">
+        <label for="nombreUsuario">Nombre de Usuario</label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" required>
+
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+        <div class="form-options">
+          <label>
+            <input type="checkbox"> Recordarme
+          </label>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit">Ingresar al Casino 💖</button>
+      </form>
+
+      <p class="register-text">
+        ¿No tienes cuenta?
+        <a href="registro.html">Regístrate aquí</a>
+      </p>
+    </section>
+  </main>
+
+</body>
+</html>
