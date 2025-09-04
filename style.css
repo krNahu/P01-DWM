@@ -1,158 +1,390 @@
-/* Colores */
+
 :root {
-    --primary-color: #eb4d9d;  
-    --primary-soft: #f7b7d7;  
-    --background: #fff0f8;      
-    --card-background: #ffffff; 
-    --foreground: #4d2c3d;    
-    --border-color: #e0d7e8;   
-    --radius-lg: 1rem;
+  /* Paleta kawaii */
+  --pink-50: #fff5f8;
+  --pink-100: #ffe3ec;
+  --pink-200: #ffc7da;
+  --pink-300: #ffa3c3;
+  --pink-400: #ff7cad;
+  --pink-500: #ff5a9b; /* primario */
+  --pink-600: #e04b89;
+  --pink-700: #b53b70;
+
+  --lav-50: #f6f4ff;
+  --lav-200: #ddd6fe;
+  --lav-400: #a78bfa;
+
+  --mint-50: #edfff7;
+  --mint-200: #b9f6e8;
+  --mint-600: #18a999;
+
+  --gray-50: #fafafa;
+  --gray-100: #f4f4f5;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-900: #111827;
+
+  --success: #16a34a;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --bg: var(--pink-50);
+  --card: #ffffff;
+  --text: #2b2b2b;
+  --link: var(--pink-600);
+  --link-hover: var(--pink-700);
+  --ring: var(--lav-400);
+  --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
+  --radius: 1.25rem; /* 2xl */
 }
 
+* { box-sizing: border-box; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
+/* Fuente: opción sin dependencia si falla Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: var(--background);
-    color: var(--foreground);
-    min-height: 100vh;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 20% -10%, var(--pink-100), transparent),
+              radial-gradient(1000px 500px at 120% 10%, var(--lav-200), transparent),
+              var(--bg);
+  line-height: 1.6;
 }
 
+img { max-width: 100%; display: block; }
 
+/* Espaciado base para las páginas que no usan <main> */
+body > h1, body > h2, body > section, body > p, body > form, body > table, body > .saldo, body > .transferencias {
+  width: min(100%, 1024px);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* -----------------------------
+   2) Barra de navegación kawaii
+   ----------------------------- */
 .nav-kawaii {
-    background-color: #ffffffcc; 
-    padding: 1rem 2rem;
-    border-radius: var(--radius-lg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gray-200);
 }
 
-.nav-links {
-    display: flex;
-    gap: 1rem;
+.nav-logo { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: .5rem; 
+  text-decoration: none; 
+  font-weight: 700; 
+  color: var(--text); 
+  margin-right: .5rem;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--foreground);
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--radius-lg);
-    transition: 0.3s;
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--pink-300);
 }
 
-.nav-links a:hover {
-    background-color: var(--primary-soft);
-    color: var(--primary-color);
+.nav-links { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: .5rem; 
 }
 
-.nav-links a.active {
-    background-color: var(--primary-color);
-    color: #fff;
+.nav-links a, .boton {
+  --_pad-y: .5rem; 
+  --_pad-x: .9rem;
+  text-decoration: none;
+  color: var(--link);
+  font-weight: 600;
+  padding: var(--_pad-y) var(--_pad-x);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: .2s ease;
 }
 
-
-.card-kawaii {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: var(--card-background);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    border: 1px solid var(--border-color);
+.nav-links a:hover, .boton:hover { 
+  color: white; 
+  background: var(--pink-600); 
 }
 
-
-.form-layout label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
+.nav-links a.active { 
+  background: var(--pink-500); 
+  color: white; 
+  box-shadow: var(--shadow);
 }
 
-.form-layout input {
-    width: 100%;
-    padding: 0.6rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-    font-family: inherit;
-    font-size: 1rem;
-    transition: 0.3s;
+/* -----------------------------
+   3) Títulos y tipografía
+   ----------------------------- */
+
+h1, h2, h3 { line-height: 1.25; }
+
+h1 { font-size: clamp(1.8rem, 2.2vw + 1rem, 2.5rem); margin: 1.25rem auto .25rem; }
+
+h2 { font-size: clamp(1.3rem, 1.6vw + .8rem, 1.8rem); margin: 1rem auto .25rem; }
+
+h3 { font-size: clamp(1.05rem, 1.1vw + .7rem, 1.25rem); margin: .85rem auto .25rem; }
+
+p { margin: .5rem 0 1rem; }
+
+small { color: var(--gray-600); }
+
+/* -----------------------------
+   4) Contenedores / tarjetas
+   ----------------------------- */
+.card-kawaii, .card, main, .panel {
+  width: min(100%, 1024px);
+  margin: 1rem auto;
+  background: var(--card);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
 }
 
-.form-layout input:focus {
-    outline: none;
-    border-color: var(--primary-color);
+/* -----------------------------
+   5) Formularios
+   ----------------------------- */
+form { width: 100%; }
+
+.form-layout {
+  display: grid;
+  gap: .85rem;
+  grid-template-columns: 1fr;
 }
 
+label { font-weight: 600; }
 
-.form-layout button {
-    width: 100%;
-    padding: 0.7rem;
-    border-radius: var(--radius-lg);
-    border: none;
-    background-color: var(--primary-color);
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: .7rem .85rem;
+  border-radius: .9rem;
+  border: 1px solid var(--gray-300);
+  background: white;
+  transition: border-color .2s, box-shadow .2s;
 }
 
-.form-layout button:hover {
-    background-color: #d73c8c; 
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 25%, transparent);
 }
 
 .form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+  font-size: .95rem;
 }
 
-.form-options a {
-    text-decoration: none;
-    color: var(--primary-color);
+button, input[type="submit"], .btn {
+  appearance: none;
+  border: none;
+  background: linear-gradient(180deg, var(--pink-500), var(--pink-600));
+  color: white;
+  font-weight: 700;
+  padding: .75rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .05s ease, filter .2s ease;
 }
 
-.form-options a:hover {
-    text-decoration: underline;
+button:hover, input[type="submit"]:hover { filter: brightness(1.05); }
+button:active, input[type="submit"]:active { transform: translateY(1px); }
+
+.register-text, .acceso-text {
+  margin-top: .75rem; 
+  font-size: .95rem; 
 }
 
-.register-text {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.95rem;
+/* -----------------------------
+   6) Tablas (incl. Ruleta)
+   ----------------------------- */
+.table, table {
+  width: min(100%, 1024px);
+  margin: 1rem auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 1rem;
+  overflow: hidden; /* redondeo visible */
+  box-shadow: var(--shadow);
 }
 
-.register-text a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
+th, td {
+  padding: .7rem .8rem;
+  border-bottom: 1px solid var(--gray-200);
+  text-align: center;
 }
 
-.register-text a:hover {
-    text-decoration: underline;
+th { background: var(--pink-100); font-weight: 700; }
+tr:last-child td { border-bottom: none; }
+
+/* Estilo "0" Ruleta: celda con rowspan (verde) */
+tr td[rowspan] {
+  background: linear-gradient(180deg, #06c167, #039f55);
+  color: white;
+  font-weight: 700;
 }
 
-@media (max-width: 480px) {
-    .card-kawaii {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-    
-    .nav-kawaii {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+/* Opcional: resaltar al pasar el mouse */
+.table-hover tr:hover td, table.table-hover tr:hover td { background: var(--gray-50); }
+
+/* -----------------------------
+   7) Listas, badges y estados
+   ----------------------------- */
+ul { padding-left: 1.1rem; }
+li { margin-bottom: .35rem; }
+
+.badge {
+  display: inline-block;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  border: 1px solid var(--gray-200);
+  background: var(--gray-100);
+}
+.badge.success { background: color-mix(in oklab, var(--success) 12%, white); color: #065f46; }
+.badge.danger { background: color-mix(in oklab, var(--danger) 12%, white); color: #7f1d1d; }
+.badge.warning { background: color-mix(in oklab, var(--warning) 12%, white); color: #92400e; }
+
+/* -----------------------------
+   8) Secciones específicas del sitio
+   ----------------------------- */
+/* Transacciones */
+.saldo {
+  width: min(100%, 1024px);
+  margin: 1rem auto 0;
+  background: var(--card);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.transferencias {
+  width: min(100%, 1024px);
+  margin: .75rem auto;
+  background: var(--card);
+  border: 1px dashed var(--pink-300);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.imagenes { 
+  width: min(100%, 1024px); 
+  margin: 1rem auto; 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+  gap: .75rem; 
+}
+
+.foto-chica { 
+  width: 100%; 
+  height: 180px; 
+  object-fit: cover; 
+  border-radius: 1rem; 
+  border: 2px solid var(--pink-200); 
+}
+
+/* Información / Equipo / Tech */
+section.informacion, section.tech, section.Aclaracion, section.equipo, section.equipo\ desarrollo {
+  width: min(100%, 1024px);
+  margin: 1rem auto;
+  background: var(--card);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+/* Mensajes de estado del juego */
+.estado-exito { color: var(--success); font-weight: 700; }
+.estado-espera { color: var(--mint-600); font-weight: 700; }
+.estado-error { color: var(--danger); font-weight: 700; }
+
+/* -----------------------------
+   9) Enlaces y accesibilidad
+   ----------------------------- */
+a { color: var(--link); }
+
+a:hover { color: var(--link-hover); }
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--ring) 70%, transparent);
+  outline-offset: 2px;
+  border-radius: .5rem;
+}
+
+/* -----------------------------
+   10) Utilidades
+   ----------------------------- */
+.center { text-align: center; }
+.right { text-align: right; }
+.m-0 { margin: 0 !important; }
+.mt-1 { margin-top: .25rem; }
+.mt-2 { margin-top: .5rem; }
+.mt-3 { margin-top: 1rem; }
+.mb-1 { margin-bottom: .25rem; }
+.mb-2 { margin-bottom: .5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.p-1 { padding: .25rem; }
+.p-2 { padding: .5rem; }
+.p-3 { padding: 1rem; }
+.rounded { border-radius: var(--radius); }
+
+/* -----------------------------
+   11) Responsivo
+   ----------------------------- */
+@media (max-width: 720px) {
+  .nav-kawaii { gap: .5rem; }
+  .nav-logo span { display: none; } /* deja solo el ícono en móvil */
+  .nav-links { gap: .35rem; }
+  .nav-links a, .boton { padding: .45rem .7rem; font-size: .9rem; }
+
+  .card-kawaii, main, .panel, .saldo, .transferencias, section.informacion, section.tech, section.Aclaracion, section.equipo { 
+    padding: .9rem; 
+  }
+
+  table, .table { font-size: .92rem; }
+}
+
+/* -----------------------------
+   12) Temita sutil (opcional): bordes decorativos
+   ----------------------------- */
+.card-kawaii::after, .saldo::after, .transferencias::after, section.informacion::after, section.tech::after, section.Aclaracion::after, section.equipo::after {
+  content: "";
+  display: block;
+  height: 6px;
+  margin-top: .6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--pink-400), var(--lav-400), var(--mint-200));
+  opacity: .35;
 }
