@@ -125,9 +125,9 @@ body > h1, body > h2, body > section, body > p, body > form, body > table, body 
 }
 
 .nav-links a.active { 
-  background: var(--pink-500); 
+  background: var(--pink-500);
   color: white; 
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); 
 }
 
 /* -----------------------------
