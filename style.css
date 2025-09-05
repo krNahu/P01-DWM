@@ -1,168 +1,143 @@
-
 :root {
-  /* Paleta kawaii */
-  --pink-50: #fff5f8;
-  --pink-100: #ffe3ec;
-  --pink-200: #ffc7da;
-  --pink-300: #ffa3c3;
-  --pink-400: #ff7cad;
-  --pink-500: #ff5a9b; /* primario */
-  --pink-600: #e04b89;
-  --pink-700: #b53b70;
-
-  --lav-50: #f6f4ff;
-  --lav-200: #ddd6fe;
-  --lav-400: #a78bfa;
-
-  --mint-50: #edfff7;
-  --mint-200: #b9f6e8;
-  --mint-600: #18a999;
-
-  --gray-50: #fafafa;
-  --gray-100: #f4f4f5;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-600: #4b5563;
-  --gray-900: #111827;
-
-  --success: #16a34a;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-
-  --bg: var(--pink-50);
-  --card: #ffffff;
-  --text: #2b2b2b;
-  --link: var(--pink-600);
-  --link-hover: var(--pink-700);
-  --ring: var(--lav-400);
+  /* Paleta kawaii personalizada */
+  --pink-light: #F1BFE5;
+  --yellow-light: #FFFDCA;
+  --mint-light: #D2F7C4;
+  --pink-primary: #FF5A9B;
+  --pink-dark: #E04B89;
+  --text-color: #2b2b2b;
+  --card-bg: #ffffff;
+  --border-radius: 1.25rem;
   --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
-  --radius: 1.25rem; /* 2xl */
 }
 
-* { box-sizing: border-box; }
-
-html, body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Fuente: opción sin dependencia si falla Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 body {
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--text);
-  background: radial-gradient(1200px 600px at 20% -10%, var(--pink-100), transparent),
-              radial-gradient(1000px 500px at 120% 10%, var(--lav-200), transparent),
-              var(--bg);
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  color: var(--text-color);
+  background: radial-gradient(1200px 600px at 20% -10%, var(--pink-light), transparent),
+              radial-gradient(1000px 500px at 120% 10%, var(--yellow-light), transparent),
+              var(--mint-light);
   line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
 }
 
-img { max-width: 100%; display: block; }
-
-/* Espaciado base para las páginas que no usan <main> */
-body > h1, body > h2, body > section, body > p, body > form, body > table, body > .saldo, body > .transferencias {
-  width: min(100%, 1024px);
-  margin-inline: auto;
-  padding-inline: 1rem;
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
-/* -----------------------------
-   2) Barra de navegación kawaii
-   ----------------------------- */
+/* Navegación kawaii */
 .nav-kawaii {
   position: sticky;
   top: 0;
   z-index: 50;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: .75rem;
-  padding: .75rem 1rem;
-  background: rgba(255, 255, 255, 0.8);
+  padding: .75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--gray-200);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
 }
 
-.nav-logo { 
-  display: inline-flex; 
-  align-items: center; 
-  gap: .5rem; 
-  text-decoration: none; 
-  font-weight: 700; 
-  color: var(--text); 
-  margin-right: .5rem;
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--text-color);
 }
 
 .logo-img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid var(--pink-300);
+  border: 2px solid var(--pink-primary);
 }
 
-.nav-links { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: .5rem; 
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
 }
 
-.nav-links a, .boton {
-  --_pad-y: .5rem; 
-  --_pad-x: .9rem;
+.nav-links a {
   text-decoration: none;
-  color: var(--link);
+  color: var(--text-color);
   font-weight: 600;
-  padding: var(--_pad-y) var(--_pad-x);
+  padding: .5rem .9rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  transition: .2s ease;
+  transition: all 0.3s ease;
 }
 
-.nav-links a:hover, .boton:hover { 
-  color: white; 
-  background: var(--pink-600); 
+.nav-links a:hover {
+  background: var(--pink-primary);
+  color: white;
 }
 
-.nav-links a.active { 
-  background: var(--pink-500);
-  color: white; 
-  box-shadow: var(--shadow); 
-}
-
-/* -----------------------------
-   3) Títulos y tipografía
-   ----------------------------- */
-
-h1, h2, h3 { line-height: 1.25; }
-
-h1 { font-size: clamp(1.8rem, 2.2vw + 1rem, 2.5rem); margin: 1.25rem auto .25rem; }
-
-h2 { font-size: clamp(1.3rem, 1.6vw + .8rem, 1.8rem); margin: 1rem auto .25rem; }
-
-h3 { font-size: clamp(1.05rem, 1.1vw + .7rem, 1.25rem); margin: .85rem auto .25rem; }
-
-p { margin: .5rem 0 1rem; }
-
-small { color: var(--gray-600); }
-
-/* -----------------------------
-   4) Contenedores / tarjetas
-   ----------------------------- */
-.card-kawaii, .card, main, .panel {
-  width: min(100%, 1024px);
-  margin: 1rem auto;
-  background: var(--card);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 1rem;
+.nav-links a.active {
+  background: var(--pink-primary);
+  color: white;
   box-shadow: var(--shadow);
 }
 
-/* -----------------------------
-   5) Formularios
-   ----------------------------- */
-form { width: 100%; }
+/* Títulos y tipografía */
+h1, h2, h3 {
+  line-height: 1.25;
+  color: var(--pink-primary);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 2.2vw + 1rem, 2.5rem);
+  margin: 1.25rem auto .25rem;
+}
+
+h2 {
+  font-size: clamp(1.3rem, 1.6vw + .8rem, 1.8rem);
+  margin: 1rem auto .25rem;
+}
+
+h3 {
+  font-size: clamp(1.05rem, 1.1vw + .7rem, 1.25rem);
+  margin: .85rem auto .25rem;
+}
+
+p {
+  margin: .5rem 0 1rem;
+  text-align: center;
+}
+
+/* Contenedores y tarjetas */
+.card-kawaii, main, section {
+  width: min(100%, 1024px);
+  margin: 1rem auto;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--pink-light);
+}
+
+/* Formularios */
+form {
+  width: 100%;
+}
 
 .form-layout {
   display: grid;
@@ -170,7 +145,10 @@ form { width: 100%; }
   grid-template-columns: 1fr;
 }
 
-label { font-weight: 600; }
+label {
+  font-weight: 600;
+  color: var(--pink-primary);
+}
 
 input[type="text"],
 input[type="email"],
@@ -182,15 +160,15 @@ textarea {
   width: 100%;
   padding: .7rem .85rem;
   border-radius: .9rem;
-  border: 1px solid var(--gray-300);
-  background: white;
+  border: 2px solid var(--pink-light);
+  background: var(--yellow-light);
   transition: border-color .2s, box-shadow .2s;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--ring);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 25%, transparent);
+  border-color: var(--pink-primary);
+  box-shadow: 0 0 0 4px rgba(255, 90, 155, 0.25);
 }
 
 .form-options {
@@ -200,191 +178,131 @@ input:focus, select:focus, textarea:focus {
   gap: .75rem;
   flex-wrap: wrap;
   font-size: .95rem;
+  margin: 1rem 0;
 }
 
-button, input[type="submit"], .btn {
+button, input[type="submit"] {
   appearance: none;
   border: none;
-  background: linear-gradient(180deg, var(--pink-500), var(--pink-600));
+  background: linear-gradient(180deg, var(--pink-primary), var(--pink-dark));
   color: white;
   font-weight: 700;
-  padding: .75rem 1rem;
+  padding: .75rem 1.5rem;
   border-radius: 999px;
   cursor: pointer;
   box-shadow: var(--shadow);
-  transition: transform .05s ease, filter .2s ease;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 1rem auto;
+  font-size: 1.1rem;
 }
 
-button:hover, input[type="submit"]:hover { filter: brightness(1.05); }
-button:active, input[type="submit"]:active { transform: translateY(1px); }
+button:hover, input[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
 .register-text, .acceso-text {
-  margin-top: .75rem; 
-  font-size: .95rem; 
+  margin-top: .75rem;
+  font-size: .95rem;
+  text-align: center;
 }
 
-/* -----------------------------
-   6) Tablas (incl. Ruleta)
-   ----------------------------- */
-.table, table {
-  width: min(100%, 1024px);
-  margin: 1rem auto;
+/* Tablas */
+table {
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   background: white;
-  border: 1px solid var(--gray-200);
   border-radius: 1rem;
-  overflow: hidden; /* redondeo visible */
+  overflow: hidden;
   box-shadow: var(--shadow);
+  margin: 1.5rem auto;
 }
 
 th, td {
   padding: .7rem .8rem;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--pink-light);
   text-align: center;
 }
 
-th { background: var(--pink-100); font-weight: 700; }
-tr:last-child td { border-bottom: none; }
-
-/* Estilo "0" Ruleta: celda con rowspan (verde) */
-tr td[rowspan] {
-  background: linear-gradient(180deg, #06c167, #039f55);
-  color: white;
+th {
+  background: var(--pink-light);
   font-weight: 700;
 }
 
-/* Opcional: resaltar al pasar el mouse */
-.table-hover tr:hover td, table.table-hover tr:hover td { background: var(--gray-50); }
-
-/* -----------------------------
-   7) Listas, badges y estados
-   ----------------------------- */
-ul { padding-left: 1.1rem; }
-li { margin-bottom: .35rem; }
-
-.badge {
-  display: inline-block;
-  padding: .25rem .6rem;
-  border-radius: 999px;
-  font-size: .8rem;
-  font-weight: 700;
-  border: 1px solid var(--gray-200);
-  background: var(--gray-100);
+/* Listas */
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
 }
-.badge.success { background: color-mix(in oklab, var(--success) 12%, white); color: #065f46; }
-.badge.danger { background: color-mix(in oklab, var(--danger) 12%, white); color: #7f1d1d; }
-.badge.warning { background: color-mix(in oklab, var(--warning) 12%, white); color: #92400e; }
 
-/* -----------------------------
-   8) Secciones específicas del sitio
-   ----------------------------- */
-/* Transacciones */
+li {
+  margin-bottom: .5rem;
+}
+
+/* Secciones específicas */
 .saldo {
-  width: min(100%, 1024px);
-  margin: 1rem auto 0;
-  background: var(--card);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 1rem;
-  box-shadow: var(--shadow);
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--pink-primary);
 }
 
 .transferencias {
-  width: min(100%, 1024px);
-  margin: .75rem auto;
-  background: var(--card);
-  border: 1px dashed var(--pink-300);
-  border-radius: var(--radius);
+  background: var(--yellow-light);
   padding: 1rem;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  text-align: center;
+  border: 2px dashed var(--pink-light);
 }
 
-.imagenes { 
-  width: min(100%, 1024px); 
-  margin: 1rem auto; 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-  gap: .75rem; 
+.metodos-pago {
+  text-align: center;
+  margin-top: 1.5rem;
 }
 
-.foto-chica { 
-  width: 100%; 
-  height: 180px; 
-  object-fit: cover; 
-  border-radius: 1rem; 
-  border: 2px solid var(--pink-200); 
+.metodos-pago img {
+  margin: 0 10px;
+  vertical-align: middle;
 }
 
-/* Información / Equipo / Tech */
-section.informacion, section.tech, section.Aclaracion, section.equipo, section.equipo\ desarrollo {
-  width: min(100%, 1024px);
-  margin: 1rem auto;
-  background: var(--card);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 1rem;
+/* Estados del juego */
+.estado-exito {
+  color: #16a34a;
+  font-weight: 700;
 }
 
-/* Mensajes de estado del juego */
-.estado-exito { color: var(--success); font-weight: 700; }
-.estado-espera { color: var(--mint-600); font-weight: 700; }
-.estado-error { color: var(--danger); font-weight: 700; }
-
-/* -----------------------------
-   9) Enlaces y accesibilidad
-   ----------------------------- */
-a { color: var(--link); }
-
-a:hover { color: var(--link-hover); }
-
-a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 3px solid color-mix(in oklab, var(--ring) 70%, transparent);
-  outline-offset: 2px;
-  border-radius: .5rem;
+.estado-espera {
+  color: #18a999;
+  font-weight: 700;
 }
 
-/* -----------------------------
-   10) Utilidades
-   ----------------------------- */
-.center { text-align: center; }
-.right { text-align: right; }
-.m-0 { margin: 0 !important; }
-.mt-1 { margin-top: .25rem; }
-.mt-2 { margin-top: .5rem; }
-.mt-3 { margin-top: 1rem; }
-.mb-1 { margin-bottom: .25rem; }
-.mb-2 { margin-bottom: .5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.p-1 { padding: .25rem; }
-.p-2 { padding: .5rem; }
-.p-3 { padding: 1rem; }
-.rounded { border-radius: var(--radius); }
+.estado-error {
+  color: #ef4444;
+  font-weight: 700;
+}
 
-/* -----------------------------
-   11) Responsivo
-   ----------------------------- */
-@media (max-width: 720px) {
-  .nav-kawaii { gap: .5rem; }
-  .nav-logo span { display: none; } /* deja solo el ícono en móvil */
-  .nav-links { gap: .35rem; }
-  .nav-links a, .boton { padding: .45rem .7rem; font-size: .9rem; }
-
-  .card-kawaii, main, .panel, .saldo, .transferencias, section.informacion, section.tech, section.Aclaracion, section.equipo { 
-    padding: .9rem; 
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-kawaii {
+    flex-direction: column;
+    padding: 1rem;
   }
-
-  table, .table { font-size: .92rem; }
-}
-
-/* -----------------------------
-   12) Temita sutil (opcional): bordes decorativos
-   ----------------------------- */
-.card-kawaii::after, .saldo::after, .transferencias::after, section.informacion::after, section.tech::after, section.Aclaracion::after, section.equipo::after {
-  content: "";
-  display: block;
-  height: 6px;
-  margin-top: .6rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--pink-400), var(--lav-400), var(--mint-200));
-  opacity: .35;
+  
+  .nav-links {
+    justify-content: center;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .card-kawaii, main, section {
+    padding: 1rem;
+  }
 }

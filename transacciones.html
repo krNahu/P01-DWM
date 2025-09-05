@@ -11,40 +11,40 @@
 
     <body>
     <nav class="nav-kawaii">
-        <a href="index.html" class="nav-logo">
-        <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
-        <span>Pocchinko Kitty</span>
-        </a>
-        <div class="nav-links">
-        <a href="index.html">Inicio</a>
-        <a href="transacciones.html">Transacciones</a>
-        <a href="ruleta.html">Mesa de ruleta</a>
-        <a href="index.html">Cierre de sesión</a>
-        <a href="perfil.html" class="active">Mi perfil</a>
-        </div>
+    <a href="index.html" class="nav-logo">
+    <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
+    <span>Pocchinko Kitty</span>
+    </a>
+    <div class="nav-links">
+    <a href="perfil.html">Mi perfil</a>
+    <a href="transacciones.html" class="active">Transacciones</a>
+    <a href="ruleta.html">Mesa de ruleta</a>
+    <a href="ruleta-info-duplica.html">Info ruleta</a>
+    <a href="cierre-sesión.html">Cierre de sesión</a>
+    </div>
     </nav>
 
         <h2>Transacciones</h2>
-    
+
     </div>
     <div class="saldo">
     <h3 for="saldo-actual">Saldo actual: 10000 CLP</h3>
     </div>
-    
-    <div class="transferencias">
-    <label for="monto-transferir">Monto a transferir (mínimo 2500 CLP):</label>
+
+    <div class="card-kawaii">
+    <label for="monto-transferir">Monto a transferir (mínimo 2500 Gar):</label>
     <input type="number" id="monto-transferir" name="monto-transferir" min="2500" step="100" />
     <button>Depositar</button>
     </div>
-    
-    <div class="transferencias">
-    <label for="monto-retirar">Monto a retirar (minimo 5000 CLP):</label>
+
+    <div class="card-kawaii">
+    <label for="monto-retirar">Monto a retirar (minimo 5000 Gar):</label>
     <input type="number" name="monto-retirar" id="monto-retirar" min="5000" step="100"/>
     <button>Retirar</button>
     </div>
-    
+
     <h3>Historial</h3>
-    
+
     <table>
   <tr>
     <td>03/09/2025</td>
@@ -59,10 +59,14 @@
 </table>
 <br>
 <br>
-    <div class="Metodo pago">
-    <label for="Metodo pago">Metodo de pago</label>
+  <div class="metodos-pago">
+  <p>Métodos de pago aceptados:</p>
+  <img src="visa.png" alt="Visa" width="60">
+  <img src="Mastercard.svg" alt="MasterCard" width="60">
+  <img src="mercado.png" alt="PayPal" width="60">
+</div>
     </div>
-    
+
     </div>
   </body>
 </html>
