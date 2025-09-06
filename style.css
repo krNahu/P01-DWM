@@ -240,7 +240,7 @@ button:hover, input[type="submit"]:hover {
 
 /* Tablas */
 table {
-  width: 100%;
+  width: 70%;
   border-collapse: separate;
   border-spacing: 0;
   background: white;
@@ -289,22 +289,30 @@ li {
   border: 2px dashed var(--pink-light);
 }
 
+.metodos-pago-container {
+  display: flex;
+  justify-content: center; /* centra los bloques horizontalmente */
+  gap: 20px;               /* espacio entre cada bloque */
+  flex-wrap: wrap;         /* si la pantalla es pequeña, bajan a otra línea */
+  margin-top: 20px;
+}
+
 .metodos-pago {
-  display: inline-block;
-            text-align: center;
-            padding: 40px;
-            border-radius: 10px;
-            width: 200px;
-            margin: 0 10px;
-            padding: 40px 0;
-            height: 100px; 
-            vertical-align: top; 
-            box-sizing: border-box; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 120px;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #fff;        /* opcional: color de fondo de los cuadrados */
+  border: 1px solid #ccc;  /* opcional: borde */
 }
 
 .metodos-pago img {
-  margin: 0 10px;
-  vertical-align: middle;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* Estados del juego */
@@ -344,3 +352,138 @@ li {
     padding: 1rem;
   }
 }
+
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;                  /* activa flexbox */
+  justify-content: space-between; /* separa los elementos a izquierda y derecha */
+  align-items: center;
+
+  background: var(--card, #ffffff);
+
+  
+  color: var(--text, #2b2b2b);
+  border-top: 1px solid var(--gray-200, #e5e7eb);
+  padding: 1rem 2rem;
+  z-index: 100;
+}
+
+.footer-inner {
+  width: min(100%, 1024px);
+  margin: 0 auto 0;
+  padding-inline: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 700;
+}
+
+.footer-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--pink-300, #ffa3c3);
+}
+
+.footer-links {
+  display: flex;
+  gap: .9rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--link, #e04b89);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  color: var(--link-hover, #b53b70);
+}
+
+.footer-copy {
+  width: min(100%, 1024px);
+  margin: .5rem auto 0;
+  padding-inline: 1rem;
+  font-size: .9rem;
+  color: var(--gray-600, #4b5563);
+  text-align: center;
+}
+
+.site-footer {
+  padding: 0.1rem 0.5rem;   /* menos espacio arriba y abajo */
+  line-height: 1.0;       /* compacta el texto */
+  font-size: 0.85rem;     /* opcional: texto un poco más chico */
+  
+  background: var(--card, #f7e3ee);
+  color: var(--text, #2b2b2b);
+  border-top: 1px solid var(--gray-200, #e5e7eb);
+  padding: 0.5rem;
+  text-align: center;
+  z-index: 100;      /* para que quede por encima de otros elementos */
+}
+
+
+.footer-right {
+  color:  var(--text, #89aed8);
+  display: flex;           /* convierte el div en contenedor flex */
+  flex-direction: column;  /* los elementos hijos se apilan verticalmente */
+  align-items: flex-end;   /* los alinea a la derecha */
+  justify-content: flex-start; /* opcional: alinea arriba */
+  gap: 2px;                /* espacio pequeño entre líneas */
+}
+
+
+
+
+
+
+
+/* Contenedor con ancho limitado */
+.perfil-wrapper {
+    width: 70%;          /* el mismo ancho que la tabla */
+    margin: 0 auto;      /* centra el bloque en la página */
+}
+
+/* Distribución en columnas */
+.perfil-container {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* estilo de los cuadros */
+.cuadro-datos, .cuadro-saldo, .cuadro-estadisticas {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+}
+
+/* columna derecha */
+.columna-derecha {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+.cuadro-datos {
+    flex: 1;
+}
+
