@@ -17,7 +17,20 @@
   padding: 0;
 }
 
+.index-body {
+  background-image: url("fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.subtitulo {
+  color: #FFFDCA; 
+}
 body {
+
+
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   color: var(--text-color);
   background: radial-gradient(1200px 600px at 20% -10%, var(--pink-light), transparent),
@@ -34,7 +47,6 @@ img {
   margin: 0 auto;
 }
 
-/* Navegación kawaii */
 .nav-kawaii {
   position: sticky;
   top: 0;
@@ -133,6 +145,23 @@ p {
   box-shadow: var(--shadow);
   border: 2px solid var(--pink-light);
 }
+
+.card-index {
+display: inline-block;
+            text-align: center;
+            color: #E04B89;
+            background-color: #FFFDCA;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            margin: 0 10px;
+            background-color: #FFFDCA;
+            padding: 20px 0;
+            height: 300px; 
+            vertical-align: top; 
+            box-sizing: border-box; 
+        }
+
 
 /* Formularios */
 form {
