@@ -21,13 +21,14 @@
   background-image: url("fondo.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-position: center;
 }
 
 .subtitulo {
   color: #FFFDCA; 
 }
+
 body {
 
 
@@ -150,13 +151,13 @@ p {
 display: inline-block;
             text-align: center;
             color: #E04B89;
-            background-color: #FFFDCA;
-            padding: 20px;
+            background-color: #ffd9e5;
+            padding: 40px;
             border-radius: 10px;
-            width: 200px;
-            margin: 0 10px;
-            background-color: #FFFDCA;
-            padding: 20px 0;
+            width: 300px;
+            margin: 0 30px;
+            background-color: #ffd9e5;
+            padding: 40px 0;
             height: 300px; 
             vertical-align: top; 
             box-sizing: border-box; 
@@ -289,8 +290,16 @@ li {
 }
 
 .metodos-pago {
-  text-align: center;
-  margin-top: 1.5rem;
+  display: inline-block;
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            width: 200px;
+            margin: 0 10px;
+            padding: 40px 0;
+            height: 100px; 
+            vertical-align: top; 
+            box-sizing: border-box; 
 }
 
 .metodos-pago img {
