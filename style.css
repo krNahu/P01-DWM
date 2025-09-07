@@ -1,17 +1,31 @@
 
 
+/*paleta que usaremos como base*/
 :root {
-  /*paleta que usaremos como base*/
   --pink-light: #F1BFE5;
   --yellow-light: #FFFDCA;
   --mint-light: #D2F7C4;
   --pink-primary: #FF5A9B;
   --pink-dark: #E04B89;
-  --text-color: #2b2b2b;
+  --text-color: #000000;
   --card-bg: #ffffff;
   --border-radius: 1.25rem;
+  --ruleta-verde:#B7D9AC;
+  --ruleta-rojo:#D6A6C1;
+  --ruleta-negro:#644e5d;
   --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
 }
+  .verde {
+    background-color: var(--ruleta-verde);
+  }
+
+  .rojo {
+    background-color: var(--ruleta-rojo);
+  }
+
+  .negro {
+    background-color: var(--ruleta-negro);
+  }
 
 * {
   box-sizing: border-box;
