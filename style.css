@@ -15,7 +15,17 @@
   --ruleta-negro:#463741;
   --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
 }
+  .verde {
+    background-color: var(--ruleta-verde);
+  }
 
+  .rojo {
+    background-color: var(--ruleta-rojo);
+  }
+
+  .negro {
+    background-color: var(--ruleta-negro);
+  }
 * {
   box-sizing: border-box;
   margin: 0;
