@@ -1,5 +1,7 @@
+
+
 :root {
-  /* Paleta kawaii personalizada */
+  /*paleta que usaremos como base*/
   --pink-light: #F1BFE5;
   --yellow-light: #FFFDCA;
   --mint-light: #D2F7C4;
@@ -30,7 +32,6 @@
 }
 
 body {
-
 
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   color: var(--text-color);
@@ -108,8 +109,8 @@ img {
   box-shadow: var(--shadow);
 }
 
-/* Títulos y tipografía */
 h1, h2, h3 {
+  /*modificacion de títulos*/
   line-height: 1.25;
   color: var(--pink-primary);
   margin-bottom: 15px;
@@ -136,8 +137,8 @@ p {
   text-align: center;
 }
 
-/* Contenedores y tarjetas */
 .card-kawaii, main, section {
+  /* mod cajas y tarjetas */
   width: min(100%, 1024px);
   margin: 1rem auto;
   background: var(--card-bg);
@@ -149,23 +150,22 @@ p {
 
 .card-index {
 display: inline-block;
-            text-align: center;
-            color: #E04B89;
-            background-color: #ffd9e5;
-            padding: 40px;
-            border-radius: 10px;
-            width: 300px;
-            margin: 0 30px;
-            background-color: #ffd9e5;
-            padding: 40px 0;
-            height: 300px; 
-            vertical-align: top; 
-            box-sizing: border-box; 
-        }
+      text-align: center;
+      color: #E04B89;
+      background-color: #ffd9e5;
+      padding: 40px;
+      border-radius: 10px;
+      width: 300px;
+      margin: 0 30px;
+      background-color: #ffd9e5;
+      padding: 40px 0;
+      height: 300px; 
+      vertical-align: top; 
+      box-sizing: border-box; 
+}
 
-
-/* Formularios */
 form {
+  /*edición de los formularios*/
   width: 100%;
 }
 
@@ -180,13 +180,7 @@ label {
   color: var(--pink-primary);
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="number"], select, textarea {
   width: 100%;
   padding: .7rem .85rem;
   border-radius: .9rem;
@@ -238,8 +232,9 @@ button:hover, input[type="submit"]:hover {
   text-align: center;
 }
 
-/* Tablas */
+
 table {
+  /* mods de las tablas */
   width: 70%;
   border-collapse: separate;
   border-spacing: 0;
@@ -261,8 +256,8 @@ th {
   font-weight: 700;
 }
 
-/* Listas */
 ul, ol {
+  /* listasss */
   margin-left: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -271,7 +266,11 @@ li {
   margin-bottom: .5rem;
 }
 
-/* Secciones específicas */
+
+
+/* modificaciones específicas */
+
+
 .saldo {
   text-align: center;
   margin: 1.5rem 0;
@@ -291,9 +290,9 @@ li {
 
 .metodos-pago-container {
   display: flex;
-  justify-content: center; /* centra los bloques horizontalmente */
-  gap: 20px;               /* espacio entre cada bloque */
-  flex-wrap: wrap;         /* si la pantalla es pequeña, bajan a otra línea */
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;      
   margin-top: 20px;
 }
 
@@ -306,8 +305,8 @@ li {
   border-radius: 10px;
   padding: 10px;
   box-sizing: border-box;
-  background: #fff;        /* opcional: color de fondo de los cuadrados */
-  border: 1px solid #ccc;  /* opcional: borde */
+  background: #fff;
+  border: 1px solid #ccc;
 }
 
 .metodos-pago img {
@@ -315,7 +314,7 @@ li {
   max-height: 100%;
 }
 
-/* Estados del juego */
+/* indicador de estado actual del juego */
 .estado-exito {
   color: #16a34a;
   font-weight: 700;
@@ -331,7 +330,7 @@ li {
   font-weight: 700;
 }
 
-/* Responsive */
+/* responsividad */
 @media (max-width: 768px) {
   .nav-kawaii {
     flex-direction: column;
@@ -353,20 +352,16 @@ li {
   }
 }
 
-
+/*footer que solo se usará en el index*/
 .site-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-
-  display: flex;                  /* activa flexbox */
-  justify-content: space-between; /* separa los elementos a izquierda y derecha */
+  display: flex;
+  justify-content: space-between; 
   align-items: center;
-
   background: var(--card, #ffffff);
-
-  
   color: var(--text, #2b2b2b);
   border-top: 1px solid var(--gray-200, #e5e7eb);
   padding: 1rem 2rem;
@@ -425,49 +420,40 @@ li {
   text-align: center;
 }
 
+/*ajuste de posición del footer*/
 .site-footer {
-  padding: 0.1rem 0.5rem;   /* menos espacio arriba y abajo */
-  line-height: 1.0;       /* compacta el texto */
-  font-size: 0.85rem;     /* opcional: texto un poco más chico */
-  
+  padding: 0.1rem 0.5rem;
+  line-height: 1.0;
+  font-size: 0.85rem;
   background: var(--card, #f7e3ee);
   color: var(--text, #2b2b2b);
   border-top: 1px solid var(--gray-200, #e5e7eb);
   padding: 0.5rem;
   text-align: center;
-  z-index: 100;      /* para que quede por encima de otros elementos */
+  z-index: 100;
 }
-
 
 .footer-right {
   color:  var(--text, #89aed8);
-  display: flex;           /* convierte el div en contenedor flex */
-  flex-direction: column;  /* los elementos hijos se apilan verticalmente */
-  align-items: flex-end;   /* los alinea a la derecha */
-  justify-content: flex-start; /* opcional: alinea arriba */
-  gap: 2px;                /* espacio pequeño entre líneas */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 2px;
 }
 
-
-
-
-
-
-
-/* Contenedor con ancho limitado */
 .perfil-wrapper {
-    width: 70%;          /* el mismo ancho que la tabla */
-    margin: 0 auto;      /* centra el bloque en la página */
+    width: 70%;
+    margin: 0 auto;
 }
 
-/* Distribución en columnas */
+
 .perfil-container {
     display: flex;
     gap: 20px;
     align-items: stretch;
 }
 
-/* estilo de los cuadros */
 .cuadro-datos, .cuadro-saldo, .cuadro-estadisticas {
     border: 2px solid #ccc;
     padding: 20px;
@@ -475,7 +461,6 @@ li {
     background-color: #fdfdfd;
 }
 
-/* columna derecha */
 .columna-derecha {
     display: flex;
     flex-direction: column;
