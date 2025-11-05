@@ -1,97 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
-
-
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil - Pocchinko Kitty 🎰</title>
     <link rel="stylesheet" href="style.css">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Perfil - Pocchinko Kitty 🎰</title>
-    </head>
-
+</head>
 <body>
 
     <nav class="nav-kawaii">
-        <a href="cierre-sesión.html" class="nav-logo">
-        <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
-        <span>Pocchinko Kitty</span>
+        <a href="/index" class="nav-logo">
+            <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
+            <span>Pocchinko Kitty</span>
         </a>
         <div class="nav-links">
-            <a href="perfil.html" class="active">Mi perfil</a>
-            <a href="transacciones.html">Transacciones</a>
-            <a href="ruleta.html">Mesa de ruleta</a>
-            <a href="ruleta-info-duplica.html">Info ruleta</a>
-            <a href="cierre-sesión.html">Cierre de sesión</a>
+            <a href="/perfil" class="active">Mi perfil</a>
+            <a href="/transacciones">Transacciones</a>
+            <a href="/ruleta">Mesa de ruleta</a>
+            <a href="/reglas">Info ruleta</a>
+            <a href="/logout">Cierre de sesión</a>
         </div>
     </nav>
 
-    <div class="perfil-wrapper">
-        <div class="perfil-container">
-            <section class="cuadro-datos">
-                <h2>Mis datos 👤</h2>
-                <h4>Nombre:</h4>
-                <h5>Pocchaco Sanrio</h5>
-                <br>
-                <h4>Usuario:</h4> 
-                <h5>pocchacogod05</h5>
-                <br>
-                <h4>Correo electrónico:</h4>
-                <h5>poccacho.sanrio@mail.udp.cl</h5>
-                <br>
-                <h4>Fecha de registro:</h4>
-                <h5>31 de marzo de 2025</h5>
-            </section>
+    <main class="perfil-main">
+        <div class="perfil-wrapper">
+            <div class="perfil-container">
+                <section class="cuadro-datos card-kawaii">
+                    <h2>Mis datos 👤</h2>
+                    <div class="dato-item">
+                        <h4>Nombre:</h4>
+                        <h5>{{user.nombreCompleto}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Usuario:</h4> 
+                        <h5>{{user.username}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Correo electrónico:</h4>
+                        <h5>{{user.correo}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Fecha de registro:</h4>
+                        <h5>{{user.fechaRegistro}}</h5>
+                    </div>
+                </section>
 
-            <div class="columna-derecha">
-                <section class="cuadro-saldo">
-                    <h2>Mi saldo 💰</h2>
-                    <b><p>37.500,00 Gars 🐾</p></b>
-                </section>
-                <section class="cuadro-estadisticas">
-                    <h2>Estadísticas de juego 📊</h2>
-                    <p>Partidas jugadas: 70</p>
-                    <p>Rondas ganadas: 18</p>
-                    <p>Mayor ganancia: 10000.00$</p>
-                    <p>Tiempo de juego total: 1h 7m</p>
-                </section>
+                <div class="columna-derecha">
+                    <section class="cuadro-saldo card-kawaii">
+                        <h2>Mi saldo 💰</h2>
+                        <b><p>{{user.saldo}} Gars 🐾</p></b>
+                    </section>
+                    <section class="cuadro-estadisticas card-kawaii">
+                        <h2>Estadísticas de juego 📊</h2>
+                        <p>Partidas jugadas: {{estadisticas.partidasJugadas}}</p>
+                        <p>Rondas ganadas: {{estadisticas.rondasGanadas}}</p>
+                        <p>Mayor ganancia: {{estadisticas.mayorGanancia}} Gars</p>
+                        <p>Tiempo de juego total: {{estadisticas.tiempoJuego}}</p>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
 
-    <h2>Últimos movimientos 📝</h2>
-
-<table>
-
-<tr>
-<td>05/09/2025</td>
-<td>+10000 CLP (Gars🐾)</td>
-<td>Apuesta</td>
-</tr>
-
-<tr>
-<td>05/09/2025</td>
-<td>+14000 CLP (Gars🐾)</td>
-<td>Deposito</td>
-</tr>
-
-<tr>
-<td>20/08/2025</td>
-<td>-5000 CLP (Gars🐾)</td>
-<td>Apuesta</td>
-</tr>
-
-<tr>
-<td>16/08/2025</td>
-<td>-5000 CLP (Gars🐾)</td>
-<td>Retiro</td>
-</tr>
-
-<tr>
-<td>05/08/2025</td>
-<td>+10000 CLP (Gars🐾)</td>
-<td>Deposito</td>
-</tr>
-</table>
+        <section class="movimientos-section">
+            <h2>Últimos movimientos 📝</h2>
+            <table class="tabla-movimientos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each movimientos}}
+                    <tr>
+                        <td>{{this.fecha}}</td>
+                        <td>{{this.monto}} Gars 🐾</td>
+                        <td>{{this.tipo}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </main>
 
 </body>
 </html>
