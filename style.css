@@ -1,7 +1,12 @@
 
 
+<<<<<<< HEAD
 /*paleta que usaremos como base*/
 :root {
+=======
+:root {
+  /*paleta que usaremos como base*/
+>>>>>>> 029e89b9dc5d34725d123594be12858e6f56148d
   --pink-light: #F1BFE5;
   --yellow-light: #FFFDCA;
   --mint-light: #D2F7C4;
@@ -12,12 +17,17 @@
   --border-radius: 1.25rem;
   --ruleta-verde:#B7D9AC;
   --ruleta-rojo:#D6A6C1;
+<<<<<<< HEAD
   --ruleta-negro:#644e5d;
+=======
+  --ruleta-negro:#463741;
+>>>>>>> 029e89b9dc5d34725d123594be12858e6f56148d
   --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
 }
   .verde {
     background-color: var(--ruleta-verde);
   }
+<<<<<<< HEAD
 
   .rojo {
     background-color: var(--ruleta-rojo);
@@ -26,7 +36,16 @@
   .negro {
     background-color: var(--ruleta-negro);
   }
+=======
+>>>>>>> 029e89b9dc5d34725d123594be12858e6f56148d
 
+  .rojo {
+    background-color: var(--ruleta-rojo);
+  }
+
+  .negro {
+    background-color: var(--ruleta-negro);
+  }
 * {
   box-sizing: border-box;
   margin: 0;
@@ -485,4 +504,7 @@ li {
 .cuadro-datos {
     flex: 1;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 029e89b9dc5d34725d123594be12858e6f56148d
