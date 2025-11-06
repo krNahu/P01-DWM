@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Transacciones - Pocchinko Kitty 🎰</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="nav-kawaii">
+        <a href="/index" class="nav-logo">
+            <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
+            <span>Pocchinko Kitty</span>
+        </a>
+        <div class="nav-links">
+            <a href="/perfil">Mi perfil</a>
+            <a href="/transacciones" class="active">Transacciones</a>
+            <a href="/ruleta">Mesa de ruleta</a>
+            <a href="/ruleta-info">Info Ruleta</a>
+            <a href="/logout">Cierre de sesión</a>
+        </div>
+    </nav>
+
+    <main class="transactions-main">
+        <h2>Transacciones</h2>
+
+        <div class="card-kawaii">
+            <h3>Saldo actual: {{saldo}} Gars 🐾</h3>
+        </div>
+
+        <div class="transactions-actions">
+            <div class="card-kawaii">
+                <form action="/depositar" method="POST">
+                    <label for="monto-depositar">Monto a depositar 🐾 (mínimo 2500 Gars):</label>
+                    <input type="number" id="monto-depositar" name="monto" min="2500" step="100" required />
+                    <button type="submit">Depositar</button>
+                </form>
+            </div>
+
+            <div class="card-kawaii">
+                <form action="/retirar" method="POST">
+                    <label for="monto-retirar">Monto a retirar 🐾 (mínimo 5000 Gars):</label>
+                    <input type="number" name="monto" id="monto-retirar" min="5000" step="100" required />
+                    <button type="submit">Retirar</button>
+                </form>
+            </div>
+        </div>
+
+        <section class="historial-section">
+            <h3>Historial</h3>
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each transacciones}}
+                    <tr>
+                        <td>{{this.fecha}}</td>
+                        <td class="{{this.tipoClase}}">{{this.monto}} Gars 🐾</td>
+                        <td>{{this.tipo}}</td>
+                        <td class="estado-{{this.estado}}">{{this.estado}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+        <div class="metodos-pago-section">
+            <p>Métodos de pago aceptados:</p>
+            <div class="metodos-pago-container">
+                <div class="metodo-pago">
+                    <img src="/images/visa.png" alt="Visa">
+                </div>
+                <div class="metodo-pago">
+                    <img src="/images/mastercard.svg" alt="MasterCard">
+                </div>
+                <div class="metodo-pago">
+                    <img src="/images/mercado-pago.png" alt="Mercado Pago">
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
