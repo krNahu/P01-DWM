@@ -28,7 +28,7 @@
                     <h2>Mis datos 👤</h2>
                     <div class="dato-item">
                         <h4>Nombre:</h4>
-                        <h5>{{user.nombreCompleto}}</h5>
+                        <h5>{{user.nombre}}</h5>
                     </div>
                     <div class="dato-item">
                         <h4>Usuario:</h4> 
@@ -47,14 +47,14 @@
                 <div class="columna-derecha">
                     <section class="cuadro-saldo card-kawaii">
                         <h2>Mi saldo 💰</h2>
-                        <b><p>{{user.saldo}} Gars 🐾</p></b>
+                        <b><p>{{saldo}} Gars 🐾</p></b>
                     </section>
                     <section class="cuadro-estadisticas card-kawaii">
                         <h2>Estadísticas de juego 📊</h2>
-                        <p>Partidas jugadas: {{estadisticas.partidasJugadas}}</p>
-                        <p>Rondas ganadas: {{estadisticas.rondasGanadas}}</p>
-                        <p>Mayor ganancia: {{estadisticas.mayorGanancia}} Gars</p>
-                        <p>Tiempo de juego total: {{estadisticas.tiempoJuego}}</p>
+                        <p>Partidas jugadas: {{partidasJugadas}}</p>
+                        <p>Rondas ganadas: {{rondasGanadas}}</p>
+                        <p>Mayor ganancia: {{mayorGanancia}} Gars</p>
+                        <p>Tiempo de juego total: {{tiempoJuego}}</p>
                     </section>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each movimientos}}
+                    {{#each transacciones}}
                     <tr>
                         <td>{{this.fecha}}</td>
                         <td>{{this.monto}} Gars 🐾</td>
