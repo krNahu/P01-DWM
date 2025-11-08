@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     apuestasInternasDiv.appendChild(btn);
   }
 
-  // Botones externos
+
   document.querySelectorAll('button[data-apuesta-tipo]').forEach(b => {
     if (!b.classList.contains('num-verde') && !b.classList.contains('num-morado') && !b.classList.contains('num-rosado')) {
       b.addEventListener('click', seleccionarApuesta);
@@ -88,14 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
         ganancia = apuestaActual.monto * 1;
         gano = true;
       }
-      // ... aquí puedes agregar todas las demás reglas de apuesta
 
       if (gano) saldo += ganancia + apuestaActual.monto;
 
       resultadoEl.innerHTML = gano ? `✅ Ganaste ${ganancia}€` : `❌ Perdiste. Cayó ${numeroGanador} (${colorResultado})`;
       saldoEl.textContent = saldo.toLocaleString('es-CL');
 
-      // Actualizar saldo en MongoDB
+      // actualizar saldo en la base
       try {
         const response = await fetch('/ruleta/actualizar-saldo', {
           method: 'POST',

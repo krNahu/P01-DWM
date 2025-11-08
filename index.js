@@ -13,9 +13,9 @@ const saltRounds = 10
 
 // === Middlewares ===
 app.use(cookieParser())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json());
-
+app.use(bodyParser.json()); // Para recibir JSON desde fetch
+app.use(bodyParser.urlencoded({ extended: true })); // Para formularios normales
+app.use(express.static('public'));
 
 // === Configurar Handlebars ===
 app.engine('handlebars', engine({ defaultLayout: 'main' }))
@@ -46,15 +46,7 @@ const UsuarioSchema = new mongoose.Schema({
 const Usuario = mongoose.model('Usuario', UsuarioSchema)
 
 
-
-
-
-
-
-
-
-
-// === Modelo de Transacción 
+// modelo de Transacción 
 const TransaccionSchema = new mongoose.Schema({
   usuario: { type: String, required: true },
   monto: Number,
@@ -64,17 +56,6 @@ const TransaccionSchema = new mongoose.Schema({
 })
 
 const Transaccion = mongoose.model('Transaccion', TransaccionSchema)
-
-
-
-
-
-
-
-
-
-
-
 
 
 // === Middleware de Autenticación ===
@@ -191,36 +172,42 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
             return res.redirect('/login')
         }
 
-        // Formatear fecha de registro
+       
+        const transacciones = await Transaccion.find({ usuario: username })
+            .sort({ fecha: -1 })
+            .limit(5) // Solo las últimas 5 para el perfil
+
+      
+        const transaccionesPreparadas = transacciones.map(t => ({
+            fecha: new Date(t.fecha).toLocaleString("es-CL"),
+            monto: t.monto.toLocaleString('es-CL'),
+            tipo: t.tipo,
+            tipoClase: t.tipo === "Depósito" ? "monto-deposito" : "monto-retiro",
+            esDeposito: t.tipo === "Depósito"
+        }))
+
         const fechaRegistro = user.createdAt ? 
             new Date(user.createdAt).toLocaleDateString('es-ES') : 
             'Fecha no disponible'
 
-        // Renderizar con datos mínimos para probar
         res.render('perfil', {
             user: {
                 nombre: user.nombre || 'N/A',
                 username: user.username,
                 correo: user.correo || 'N/A',
-                fechaRegistro: fechaRegistro,
-                saldo: user.saldo ? user.saldo.toLocaleString('es-CL') : '0'  // Agregar saldo aquí
+                fechaRegistro: fechaRegistro
             },
+            saldo: user.saldo ? user.saldo.toLocaleString('es-CL') : '0',
             partidasJugadas: 70,
             rondasGanadas: 18,
             mayorGanancia: "10.000,00",
             tiempoJuego: "1h 7m",
-            transacciones: [
-                { fecha: '05/09/2025', monto: '+10.000', tipo: 'Apuesta' },
-                { fecha: '05/09/2025', monto: '+14.000', tipo: 'Depósito' },
-                { fecha: '20/08/2025', monto: '-5.000', tipo: 'Apuesta' },
-                { fecha: '16/08/2025', monto: '-5.000', tipo: 'Retiro' },
-                { fecha: '05/08/2025', monto: '+10.000', tipo: 'Depósito' }
-            ]
+            transacciones: transaccionesPreparadas
         })
-        
-    } catch (err) {
-        console.error('Error al cargar datos del usuario:', err)
-        res.send('Error al cargar la página de perfil.')
+
+    } catch (error) {
+        console.error('Error al cargar perfil:', error)
+        res.status(500).send('Error interno del servidor')
     }
 })
 
@@ -234,13 +221,7 @@ app.get('/ruleta-info-duplica', isAuthenticated, (req, res) => {
 })
 
 
-
-
-
-
-
-
-
+//ruleta
 app.get('/ruleta', isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   try {
@@ -254,20 +235,7 @@ app.get('/ruleta', isAuthenticated, async (req, res) => {
   }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//transacciones
 
 app.get('/transacciones', isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
@@ -276,7 +244,6 @@ app.get('/transacciones', isAuthenticated, async (req, res) => {
     const usuario = await Usuario.findOne({ username })
     const transacciones = await Transaccion.find({ usuario: username }).sort({ fecha: -1 })
 
-    // Preparar datos para la vista
     const transaccionesPreparadas = transacciones.map(t => ({
       fecha: new Date(t.fecha).toLocaleString("es-CL"),
       monto: t.monto.toLocaleString('es-CL'),
@@ -295,6 +262,7 @@ app.get('/transacciones', isAuthenticated, async (req, res) => {
   }
 })
 
+//para depositar
 app.post("/depositar", isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   const monto = parseInt(req.body.monto)
@@ -302,14 +270,14 @@ app.post("/depositar", isAuthenticated, async (req, res) => {
   if (monto < 2500) return res.send("Monto mínimo: 2500 Gars.")
 
   try {
-    // Actualizar saldo del usuario
+    // actualizar saldo 
     await Usuario.updateOne(
       { username }, 
       { $inc: { saldo: monto } }, 
       { upsert: true }
     )
     
-    // Registrar transacción
+    // registrar
     await Transaccion.create({ 
       usuario: username, 
       monto, 
@@ -323,6 +291,8 @@ app.post("/depositar", isAuthenticated, async (req, res) => {
   }
 })
 
+
+//retirar
 app.post("/retirar", isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   const monto = parseInt(req.body.monto)
@@ -341,7 +311,7 @@ app.post("/retirar", isAuthenticated, async (req, res) => {
       { $inc: { saldo: -monto } }
     )
     
-    // Registrar transacción
+    // Registrar 
     await Transaccion.create({ 
       usuario: username, 
       monto, 
@@ -355,27 +325,28 @@ app.post("/retirar", isAuthenticated, async (req, res) => {
   }
 })
 
-
-
-
-
-
+//logout
 app.get('/logout', isAuthenticated, (req, res) => {
   res.render('logout') 
 })
 
 app.get('/logout/confirmar', (req, res) => {
-  // Borra la cookie
+  // borra las cookies al cerrar sesion :P
   res.clearCookie('session_user', { path: '/', httpOnly: true, sameSite: 'lax' })
   console.log('🔸 Sesión cerrada correctamente.')
   res.redirect('/login')
 })
 
 
-
+//actualizar el saldo de la base de datos 
 app.post('/ruleta/actualizar-saldo', isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user;
   const { nuevoSaldo } = req.body;
+  
+  if (typeof nuevoSaldo !== 'number') {
+    return res.json({ success: false, message: 'nuevoSaldo no es un número' });
+  }
+
   try {
     await Usuario.updateOne({ username }, { $set: { saldo: nuevoSaldo } });
     res.json({ success: true });
@@ -386,9 +357,8 @@ app.post('/ruleta/actualizar-saldo', isAuthenticated, async (req, res) => {
 });
 
 
-
-
 app.use(express.static('public'))
+
 
 // === Servidor ===
 app.listen(port, () => {
