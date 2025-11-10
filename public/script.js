@@ -24,11 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
     apuestasInternasDiv.appendChild(btn);
   }
 
-
-  document.querySelectorAll('button[data-apuesta-tipo]').forEach(b => {
-    if (!b.classList.contains('num-verde') && !b.classList.contains('num-morado') && !b.classList.contains('num-rosado')) {
-      b.addEventListener('click', seleccionarApuesta);
-    }
+  // SOLUCIÓN: Solo botones específicos de apuestas
+  document.querySelectorAll('.apuestas-externas button, .apuestas-multiples button, .apuestas-internas button').forEach(b => {
+    b.addEventListener('click', seleccionarApuesta);
   });
 
   btnGirar.addEventListener('click', girar);
@@ -40,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const btn = e.target;
     const monto = parseInt(montoEl.value);
     if (isNaN(monto) || monto <= 0 || monto > saldo) {
-      mensajeApuesta.textContent = `Monto inválido (máx: ${saldo}€)`;
+      mensajeApuesta.textContent = `Monto inválido (máx: ${saldo.toLocaleString('es-CL')} Gars)`;
       return;
     }
     btn.classList.add('apuesta-seleccionada');
@@ -49,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valor: btn.dataset.valor,
       monto
     };
-    mensajeApuesta.textContent = `Apostado ${monto}€ a ${btn.dataset.valor}`;
+    mensajeApuesta.textContent = `Apostado ${monto} Gars a ${btn.dataset.valor}`;
   }
 
   async function girar() {
@@ -77,21 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
       const numeroGanador = sector % 37;
       const colorResultado = numeroGanador === 0 ? 'verde' : numeroGanador % 2 === 0 ? 'morado' : 'rosado';
 
-      // Verificar ganancia
+      // Verificar ganancia - CORREGIDO
       let ganancia = 0;
       let gano = false;
+      
       if (apuestaActual.tipo === 'numero' && parseInt(apuestaActual.valor) === numeroGanador) {
         ganancia = apuestaActual.monto * 35;
         gano = true;
       }
       if (apuestaActual.tipo === 'color' && apuestaActual.valor === colorResultado) {
-        ganancia = apuestaActual.monto * 1;
+        ganancia = apuestaActual.monto * 2; // CORREGIDO: x2
         gano = true;
       }
+      // Aquí deberías agregar lógica para los otros tipos de apuestas
 
       if (gano) saldo += ganancia + apuestaActual.monto;
 
-      resultadoEl.innerHTML = gano ? `✅ Ganaste ${ganancia}€` : `❌ Perdiste. Cayó ${numeroGanador} (${colorResultado})`;
+      resultadoEl.innerHTML = gano ? `✅ Ganaste ${ganancia} Gars` : `❌ Perdiste. Cayó ${numeroGanador} (${colorResultado})`;
       saldoEl.textContent = saldo.toLocaleString('es-CL');
 
       // actualizar saldo en la base
