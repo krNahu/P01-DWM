@@ -12,6 +12,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
   saldoEl.textContent = saldo.toLocaleString('es-CL');
 
+  // === AGREGAR: Función para cargar últimos números ===
+  async function cargarUltimosNumeros() {
+    try {
+      const response = await fetch('/api/ultimos-numeros');
+      const ultimosNumeros = await response.json();
+      
+      const contenedor = document.getElementById('ultimos-numeros');
+      if (!contenedor) {
+        console.log('Contenedor de últimos números no encontrado');
+        return;
+      }
+      
+      contenedor.innerHTML = '';
+      
+      if (ultimosNumeros.length === 0) {
+        for (let i = 0; i < 5; i++) {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'numero-placeholder';
+          placeholder.textContent = '-';
+          contenedor.appendChild(placeholder);
+        }
+        return;
+      }
+      
+      ultimosNumeros.forEach(resultado => {
+        const elemento = document.createElement('div');
+        elemento.className = `numero-ruleta numero-${resultado.color}`;
+        elemento.textContent = resultado.numero;
+        
+        if (resultado.gano) {
+          elemento.style.border = '2px solid gold';
+          elemento.title = '¡Ganó esta ronda!';
+        }
+        
+        contenedor.appendChild(elemento);
+      });
+      
+    } catch (error) {
+      console.error('Error al cargar últimos números:', error);
+    }
+  }
+
+  // === AGREGAR: Cargar últimos números al iniciar ===
+  cargarUltimosNumeros();
+
   // Crear botones internos 0–36
   for (let i = 0; i <= 36; i++) {
     const btn = document.createElement('button');
@@ -93,6 +138,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
       resultadoEl.innerHTML = gano ? `✅ Ganaste ${ganancia} Gars` : `❌ Perdiste. Cayó ${numeroGanador} (${colorResultado})`;
       saldoEl.textContent = saldo.toLocaleString('es-CL');
+
+      // === MODIFICAR: Guardar resultado en la base de datos ===
+      try {
+        const resultadoData = {
+          numero: numeroGanador,
+          color: colorResultado,
+          apuesta: apuestaActual.tipo + ':' + apuestaActual.valor,
+          monto: apuestaActual.monto,
+          ganancia: gano ? ganancia : 0,
+          gano: gano
+        };
+
+        const saveResponse = await fetch('/ruleta/guardar-resultado', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(resultadoData)
+        });
+
+        const saveResult = await saveResponse.json();
+        
+        // === AGREGAR: Actualizar últimos números después de guardar ===
+        if (saveResult.success) {
+          cargarUltimosNumeros();
+        }
+        
+      } catch (err) {
+        console.error('Error al guardar resultado:', err);
+      }
 
       // actualizar saldo en la base
       try {

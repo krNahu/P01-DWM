@@ -58,6 +58,23 @@ const TransaccionSchema = new mongoose.Schema({
 const Transaccion = mongoose.model('Transaccion', TransaccionSchema)
 
 
+//modelo guardado de datos ruleta
+// === Modelo de ResultadoRuleta ===
+const ResultadoRuletaSchema = new mongoose.Schema({
+  usuario: { type: String, required: true },
+  numero: { type: Number, required: true },
+  color: { type: String, required: true },
+  apuesta: { type: String, required: true }, // Tipo de apuesta que hizo
+  monto: { type: Number, required: true },
+  ganancia: { type: Number, default: 0 },
+  gano: { type: Boolean, default: false }
+}, { 
+  timestamps: true 
+});
+
+const ResultadoRuleta = mongoose.model('ResultadoRuleta', ResultadoRuletaSchema);
+
+
 // === Middleware de Autenticación ===
 const isAuthenticated = (req, res, next) => {
     if (req.cookies.session_user) {
@@ -219,6 +236,50 @@ app.get('/ruleta-info',  (req, res) => { res.render('ruleta-info') })
 app.get('/ruleta-info-duplica', isAuthenticated, (req, res) => {
     res.render('ruleta-info-duplica')
 })
+
+//ruta guardado de datos de la ruleta
+
+app.post('/ruleta/guardar-resultado', isAuthenticated, async (req, res) => {
+  const username = req.cookies.session_user;
+  const { numero, color, apuesta, monto, ganancia, gano } = req.body;
+  
+  try {
+    await ResultadoRuleta.create({
+      usuario: username,
+      numero,
+      color,
+      apuesta,
+      monto,
+      ganancia,
+      gano
+    });
+    
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al guardar resultado:', error);
+    res.status(500).json({ success: false, error: 'Error al guardar resultado' });
+  }
+});
+
+//ruta obtención de ult 5 datos
+app.get('/api/ultimos-numeros', isAuthenticated, async (req, res) => {
+  const username = req.cookies.session_user;
+  
+  try {
+    const ultimosNumeros = await ResultadoRuleta.find({ usuario: username })
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select('numero color gano createdAt')
+      .lean();
+    
+    res.json(ultimosNumeros);
+  } catch (error) {
+    console.error('Error al obtener últimos números:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+
 
 
 //ruleta

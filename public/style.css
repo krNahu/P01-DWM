@@ -784,3 +784,45 @@ input[type="submit"]:hover {
     height: auto;
     object-fit: contain;
 }
+
+.ultimos-numeros-container {
+  background: #b3e6bb;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.ultimos-numeros-container h3 {
+  color: rgb(149, 80, 167);
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.ultimos-numeros {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.numero-ruleta, .numero-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 1.1em;
+}
+
+.numero-placeholder {
+  background: #ffffff;
+  color: #a0aec0;
+}
+
+.numero-verde { background: #38a169; }
+.numero-morado { background: #805ad5; }
+.numero-rosado { background: #d53f8c; }
