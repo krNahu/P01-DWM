@@ -3,34 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Ruleta - Pocchinko Kitty 🎰</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<link rel="stylesheet" href="style.css">
 <body>
 
-    <nav class="nav-kawaii">
+  <nav class="nav-kawaii">
     <a href="/logout" class="nav-logo">
       <img src="casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
       <span>Pocchinko Kitty</span>
     </a>
     <div class="nav-links">
-    <a href="/perfil">Mi Perfil</a>
-    <a href="/transacciones">Transacciones</a>
-    <a href="/ruleta" class="active">Mesa de Ruleta</a>
-    <a href="/ruleta-info-duplica">Info ruleta</a>
-    <a href="/logout">Cierre de sesión</a>
+      <a href="/perfil">Mi Perfil</a>
+      <a href="/transacciones">Transacciones</a>
+      <a href="/ruleta" class="active">Mesa de Ruleta</a>
+      <a href="/ruleta-info-duplica">Info ruleta</a>
+      <a href="/logout">Cierre de sesión</a>
     </div>
   </nav>
 
-
-<header>
+  <header>
     <h1>Ruleta Europea 💖</h1>
- <p>Saldo: <span id="saldo">{{saldo}}</span> Gars 🐾</p>
+    <p>Saldo: <span id="saldo">{{saldo}}</span> Gars 🐾</p>
   </header>
 
   <main class="app">
+    <!-- Ruleta Integrada -->
     <div class="roulette-wrap">
       <div class="pointer"></div>
-      <div id="ruleta" class="wheel"></div>
+      <div id="wheel" class="wheel"></div>
+    </div>
+
+    <div class="status-ruleta">
+      <div id="status">Listo para jugar</div>
     </div>
 
     <div class="apuesta-control">
@@ -41,67 +45,71 @@
     <div class="apuestas-internas"></div>
     
     <div class="apuestas-externas">
-  <div class="fila-apuestas">
-    <button class="apuesta-color" data-apuesta-tipo="color" data-valor="rosado">APOSTAR ROSADO (x2)</button>
-    <button class="apuesta-color" data-apuesta-tipo="color" data-valor="morado">APOSTAR MORADO (x2)</button>
-  </div>
-  <div class="fila-apuestas">
-    <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="par">APOSTAR PAR (x2)</button>
-    <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="impar">APOSTAR IMPAR (x2)</button>
-  </div>
-  <div class="fila-apuestas">
-    <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="bajo">APOSTAR 1-18 (x2)</button>
-    <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="alto">APOSTAR 19-36 (x2)</button>
-  </div>
-  <div class="fila-apuestas">
-    <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="1">APOSTAR 1-12 (x3)</button>
-    <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="2">APOSTAR 13-24 (x3)</button>
-    <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="3">APOSTAR 25-36 (x3)</button>
-  </div>
-</div>
+      <div class="fila-apuestas">
+        <button class="apuesta-color" data-apuesta-tipo="color" data-valor="rosado">APOSTAR ROSADO (x2)</button>
+        <button class="apuesta-color" data-apuesta-tipo="color" data-valor="morado">APOSTAR MORADO (x2)</button>
+      </div>
+      <div class="fila-apuestas">
+        <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="par">APOSTAR PAR (x2)</button>
+        <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="impar">APOSTAR IMPAR (x2)</button>
+      </div>
+      <div class="fila-apuestas">
+        <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="bajo">APOSTAR 1-18 (x2)</button>
+        <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="alto">APOSTAR 19-36 (x2)</button>
+      </div>
+      <div class="fila-apuestas">
+        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="1">APOSTAR 1-12 (x3)</button>
+        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="2">APOSTAR 13-24 (x3)</button>
+        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="3">APOSTAR 25-36 (x3)</button>
+      </div>
+    </div>
 
     <div class="apuestas-multiples">
       <h3>Apuestas Múltiples</h3>
       <div class="caballos">
         <h4>Apuestas Caballo</h4>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-1">0-1 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-2">0-2 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-3">0-3 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="1-2">1-2 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="2-3">2-3 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="3-4">3-4 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="4-5">4-5 (x17)</button>
-        <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="5-6">5-6 (x17)</button>
+        <div class="botones-caballos">
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-1">0-1 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-2">0-2 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-3">0-3 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="1-2">1-2 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="2-3">2-3 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="3-4">3-4 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="4-5">4-5 (x17)</button>
+          <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="5-6">5-6 (x17)</button>
+        </div>
       </div>
       <div class="transversales">
         <h4>Apuestas Transversal</h4>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="1-2-3">1-2-3 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="4-5-6">4-5-6 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="7-8-9">7-8-9 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="10-11-12">10-11-12 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="13-14-15">13-14-15 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="16-17-18">16-17-18 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="19-20-21">19-20-21 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="22-23-24">22-23-24 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="25-26-27">25-26-27 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="28-29-30">28-29-30 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="31-32-33">31-32-33 (x11)</button>
-        <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="34-35-36">34-35-36 (x11)</button>
+        <div class="botones-transversales">
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="1-2-3">1-2-3 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="4-5-6">4-5-6 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="7-8-9">7-8-9 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="10-11-12">10-11-12 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="13-14-15">13-14-15 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="16-17-18">16-17-18 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="19-20-21">19-20-21 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="22-23-24">22-23-24 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="25-26-27">25-26-27 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="28-29-30">28-29-30 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="31-32-33">31-32-33 (x11)</button>
+          <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="34-35-36">34-35-36 (x11)</button>
+        </div>
       </div>
     </div>
 
     <button id="btnGirar" class="btn">🎰 GIRAR RULETA</button>
 
     <div class="ultimos-numeros-container">
-  <h3>Últimos 5 números</h3>
-  <div id="ultimos-numeros" class="ultimos-numeros">
-    <div class="numero-placeholder">-</div>
-    <div class="numero-placeholder">-</div>
-    <div class="numero-placeholder">-</div>
-    <div class="numero-placeholder">-</div>
-    <div class="numero-placeholder">-</div>
-  </div>
-</div>
+      <h3>Últimos 5 números</h3>
+      <div id="ultimos-numeros" class="ultimos-numeros">
+        <div class="numero-placeholder">-</div>
+        <div class="numero-placeholder">-</div>
+        <div class="numero-placeholder">-</div>
+        <div class="numero-placeholder">-</div>
+        <div class="numero-placeholder">-</div>
+      </div>
+    </div>
 
     <div id="mensajeApuesta">Selecciona tu apuesta y monto.</div>
     <div id="resultado">Esperando...</div>

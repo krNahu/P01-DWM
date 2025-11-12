@@ -60,7 +60,6 @@ body {
   min-height: 100vh;
 }
 
-
 img {
   max-width: 100%;
   display: block;
@@ -195,9 +194,6 @@ label {
     color: var(--pink-primary);
 }
 
-
-
-
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -232,7 +228,7 @@ textarea:focus {
 }
 
 button,
-input[type="aaa"] {
+input[type="submit"] {
     appearance: none;
     border: none;
     background: linear-gradient(180deg, var(--pink-primary), var(--pink-dark));
@@ -248,8 +244,6 @@ input[type="aaa"] {
     font-size: 1.1rem;
 }
 
-
-
 button:hover,
 input[type="submit"]:hover {
     transform: translateY(-2px);
@@ -262,17 +256,6 @@ input[type="submit"]:hover {
     font-size: .95rem;
     text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .roulette-wrap {
   position: relative;
@@ -302,49 +285,93 @@ input[type="submit"]:hover {
   height: 100%;
   border-radius: 50%;
   border: 10px solid var(--rim);
-  background: conic-gradient(
-    var(--verde) 0deg 10deg,
-    var(--rosado) 10deg 20deg,
-    var(--morado) 20deg 30deg,
-    var(--rosado) 30deg 40deg,
-    var(--morado) 40deg 50deg,
-    var(--rosado) 50deg 60deg,
-    var(--morado) 60deg 70deg,
-    var(--rosado) 70deg 80deg,
-    var(--morado) 80deg 90deg,
-    var(--rosado) 90deg 100deg,
-    var(--morado) 100deg 110deg,
-    var(--rosado) 110deg 120deg,
-    var(--morado) 120deg 130deg,
-    var(--rosado) 130deg 140deg,
-    var(--morado) 140deg 150deg,
-    var(--rosado) 150deg 160deg,
-    var(--morado) 160deg 170deg,
-    var(--rosado) 170deg 180deg,
-    var(--morado) 180deg 190deg,
-    var(--rosado) 190deg 200deg,
-    var(--morado) 200deg 210deg,
-    var(--rosado) 210deg 220deg,
-    var(--morado) 220deg 230deg,
-    var(--rosado) 230deg 240deg,
-    var(--morado) 240deg 250deg,
-    var(--rosado) 250deg 260deg,
-    var(--morado) 260deg 270deg,
-    var(--rosado) 270deg 280deg,
-    var(--morado) 280deg 290deg,
-    var(--rosado) 290deg 300deg,
-    var(--morado) 300deg 310deg,
-    var(--rosado) 310deg 320deg,
-    var(--morado) 320deg 330deg,
-    var(--rosado) 330deg 340deg,
-    var(--morado) 340deg 350deg,
-    var(--rosado) 350deg 360deg
-  );
   transition: transform 5s cubic-bezier(.12,.63,.16,1);
   box-shadow:
     inset 0 0 0 5px #0006,
     inset 0 0 30px rgba(0, 0, 0, 0.45),
     0 0 20px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Etiquetas de números (se generan con JavaScript) */
+.labels {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.label.win {
+  box-shadow: 0 0 15px gold;
+  transform: translate(-50%, -50%) var(--pos) scale(1.2);
+  z-index: 10;
+}
+
+.label.green {
+  background: var(--verde);
+  color: white;
+}
+
+/* Estado de la ruleta */
+.status-ruleta {
+  text-align: center;
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.result-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.result-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-green { background: var(--verde); }
+.dot-red { background: var(--rosado); }
+.dot-black { background: var(--morado); }
+
+/* Efecto de giro */
+.girando {
+  animation: pulse-giro 1s infinite;
+}
+
+@keyframes pulse-giro {
+  0%, 100% { filter: drop-shadow(0 0 5px gold); }
+  50% { filter: drop-shadow(0 0 20px gold); }
 }
 
 /* --- Apuestas y botones --- */
@@ -418,7 +445,6 @@ input[type="submit"]:hover {
 .resultado-morado { background: var(--morado); }
 .resultado-verde { background: var(--verde); }
 
-
 /* modificaciones específicas */
 .saldo {
     text-align: center;
@@ -463,16 +489,11 @@ input[type="submit"]:hover {
     max-height: 100%;
 }
 
-
-
-
-
-  .card-kawaii,
-    main,
-    section {
-        padding: 1rem;
-    }
-
+.card-kawaii,
+main,
+section {
+    padding: 1rem;
+}
 
 /* footer que solo se usará en el index */
 .site-footer {
@@ -826,3 +847,128 @@ input[type="submit"]:hover {
 .numero-verde { background: #38a169; }
 .numero-morado { background: #805ad5; }
 .numero-rosado { background: #d53f8c; }
+
+
+/* === ESTILOS ESPECÍFICOS PARA LA NUEVA RULETA === */
+
+.roulette-container {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.wheel-wrap {
+  position: relative;
+  width: var(--wheel-size);
+  height: var(--wheel-size);
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
+}
+
+.controls {
+  margin: 20px 0;
+}
+
+.btn-spin {
+  background: linear-gradient(180deg, var(--pink-primary), var(--pink-dark));
+  color: white;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.btn-spin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-spin:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mejoras para las filas de apuestas */
+.fila-apuestas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+/* Ajustes para apuestas múltiples */
+.apuestas-multiples {
+  margin: 20px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+.caballos, .transversales {
+  margin: 15px 0;
+}
+
+.botones-caballos, .botones-transversales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Estados de la ruleta */
+#status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --wheel-size: 280px;
+  }
+  
+  .fila-apuestas {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .apuestas-externas button {
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .botones-caballos, .botones-transversales {
+    gap: 5px;
+  }
+  
+  .botones-caballos button, 
+  .botones-transversales button {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.6rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --wheel-size: 250px;
+  }
+  
+  .apuestas-internas button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.8rem;
+  }
+}
