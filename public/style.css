@@ -283,6 +283,20 @@ input[type="submit"]:hover {
   max-width: none !important; 
 }
 
+.ruleta-centro {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px; 
+  height: 160px; 
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 9999;
+  max-width: none !important; 
+}
+
+
 .roulette-wrap .ruleta-marco {
   max-width: none;
 }

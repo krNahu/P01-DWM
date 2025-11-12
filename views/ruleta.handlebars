@@ -15,7 +15,7 @@
     <div class="nav-links">
       <a href="/perfil">Mi Perfil</a>
       <a href="/transacciones">Transacciones</a>
-      <a href="/ruleta" class="active">Mesa de Ruleta</a>
+      <a href="/ruleta" class="active">Mesa de ruleta</a>
       <a href="/ruleta-info-duplica">Reglas Ruleta</a>
       <a href="/logout">Cierre de sesión</a>
     </div>
@@ -59,10 +59,11 @@
 
   <div class="roulette-wrap">
   
+  <img src="centro.png" alt="Centro" class="ruleta-centro">
   <img src="borde.png" alt="Marco decorativo" class="ruleta-marco">
-  
   <div class="pointer"></div>
   <div id="wheel" class="wheel"></div>
+
 </div>
 
         <div class="status-ruleta">
@@ -71,7 +72,7 @@
 
         <div class="apuesta-control">
           <label for="montoApuesta">Monto a Apostar:</label>
-          <input type="number" id="montoApuesta" value="10" min="1">
+          <input type="number" id="montoApuesta" value="1000" min="1">
         </div>
 
         <div class="apuestas-internas"></div>
@@ -129,44 +130,43 @@
             </div>
           </div>
         </div>
-
-        <button id="btnGirar" class="btn">🎰 GIRAR RULETA</button>
-
-        <div id="mensajeApuesta">Selecciona tu apuesta y monto.</div>
         
 
       </div>
 
     
-      <div class="panel-derecho-ruleta">
-        
-        <div class="cuadrado-ruleta">
-          <h3>🎯 Guía </h3>
-          <div class="guia-item-ruleta">
-            <span class="guia-icon-ruleta">🎯</span>
-            <span class="guia-texto-ruleta">Número exacto: <strong>35:1</strong></span>
-          </div>
-          <div class="guia-item-ruleta">
-            <span class="guia-icon-ruleta">💖</span>
-            <span class="guia-texto-ruleta">Rosa/Morado: <strong>1:1</strong></span>
-          </div>
-          <div class="guia-item-ruleta">
-            <span class="guia-icon-ruleta">✨</span>
-            <span class="guia-texto-ruleta">Par/Impar: <strong>1:1</strong></span>
-          </div>
-          <div class="guia-item-ruleta">
-            <span class="guia-icon-ruleta">🌟</span>
-            <span class="guia-texto-ruleta">Docenas: <strong>2:1</strong></span>
-          </div>
-          <div class="guia-item-ruleta">
-            <span class="guia-icon-ruleta">🌸</span>
-            <a href="/ruleta-info-duplica" class="guia-link-ruleta">Ver todas las reglas →</a>
-          </div>
-        </div>
-
-      </div>
-
+    <div class="panel-derecho-ruleta">
+  
+  <div class="cuadrado-ruleta">
+    <h3>🎯 Guía </h3>
+    <div class="guia-item-ruleta">
+      <span class="guia-icon-ruleta">🎯</span>
+      <span class="guia-texto-ruleta">Número exacto: <strong>35:1</strong></span>
     </div>
+    <div class="guia-item-ruleta">
+      <span class="guia-icon-ruleta">💖</span>
+      <span class="guia-texto-ruleta">Rosa/Morado: <strong>1:1</strong></span>
+    </div>
+    <div class="guia-item-ruleta">
+      <span class="guia-icon-ruleta">✨</span>
+      <span class="guia-texto-ruleta">Par/Impar: <strong>1:1</strong></span>
+    </div>
+    <div class="guia-item-ruleta">
+      <span class="guia-icon-ruleta">🌟</span>
+      <span class="guia-texto-ruleta">Docenas: <strong>2:1</strong></span>
+    </div>
+    <div class="guia-item-ruleta">
+      <span class="guia-icon-ruleta">🌸</span>
+      <a href="/ruleta-info-duplica" class="guia-link-ruleta">Ver todas las reglas →</a>
+    </div>
+  </div>
+  
+ <div class="cuadrado-ruleta">
+    <button id="btnGirar" class="btn">🎰 GIRAR RULETA</button>
+    <div id="mensajeApuesta" class="guia-texto-ruleta" >Selecciona tu apuesta y monto.</div>
+  </div>
+</div>
+
   </main>
 
 
