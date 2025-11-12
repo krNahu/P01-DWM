@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // === ELEMENTOS DEL SISTEMA ===
+  //ELEMENTOS DEL SISTEMA
   const saldoEl = document.querySelector("#saldo");
   const montoEl = document.getElementById('montoApuesta');
   const btnGirar = document.getElementById('btnGirar');

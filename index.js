@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-
+const path = require('path')
 
 const app = express()
 const port = 80
@@ -18,9 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // === Configurar Handlebars ===
-app.engine('handlebars', engine({ defaultLayout: 'main' }))
+app.engine('handlebars', engine({
+  defaultLayout: 'public',
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+}))
 app.set('view engine', 'handlebars')
-app.set('views', './views')
+app.set('views', path.join(__dirname, 'views'))
 
 // === Conexión MongoDB ===
 mongoose.connect('mongodb+srv://nociiva:pocchinko@Pocchinko.mseba1s.mongodb.net/?appName=Pocchinko', {
@@ -38,13 +41,12 @@ const UsuarioSchema = new mongoose.Schema({
   correo: String,
   fechaNacimiento: Date,
   saldo: { type: Number, default: 0 } 
-
-},{ timestamps: true,
+},{ 
+  timestamps: true,
   strict: true  
- })
+})
 
 const Usuario = mongoose.model('Usuario', UsuarioSchema)
-
 
 // modelo de Transacción 
 const TransaccionSchema = new mongoose.Schema({
@@ -57,56 +59,65 @@ const TransaccionSchema = new mongoose.Schema({
 
 const Transaccion = mongoose.model('Transaccion', TransaccionSchema)
 
-
-//modelo guardado de datos ruleta
-// === Modelo de ResultadoRuleta ===
+// modelo guardado de datos ruleta
 const ResultadoRuletaSchema = new mongoose.Schema({
   usuario: { type: String, required: true },
   numero: { type: Number, required: true },
   color: { type: String, required: true },
-  apuesta: { type: String, required: true }, // Tipo de apuesta que hizo
+  apuesta: { type: String, required: true },
   monto: { type: Number, required: true },
   ganancia: { type: Number, default: 0 },
   gano: { type: Boolean, default: false }
 }, { 
   timestamps: true 
-});
+})
 
-const ResultadoRuleta = mongoose.model('ResultadoRuleta', ResultadoRuletaSchema);
-
+const ResultadoRuleta = mongoose.model('ResultadoRuleta', ResultadoRuletaSchema)
 
 // === Middleware de Autenticación ===
 const isAuthenticated = (req, res, next) => {
     if (req.cookies.session_user) {
-        return next();
+        return next()
     }
-    res.redirect('/login');
-};
+    res.redirect('/login')
+}
 
 // === Rutas ===
 
 // Ruta raíz
 app.get('/', (req, res) => {
     if (req.cookies.session_user) {
-        return res.redirect('/perfil');
+        return res.redirect('/perfil')
     }
-    res.render('index');
+    res.render('index', {
+        active: {
+            inicio: true
+        }
+    })
 })
 
 // Ruta index
 app.get('/index', (req, res) => {
     if (req.cookies.session_user) {
-        return res.redirect('/perfil');
+        return res.redirect('/perfil')
     }
-    res.render('index');
+    res.render('index', {
+        active: {
+            inicio: true
+        }
+    })
 })
 
 // Registro
 app.get('/register', (req, res) => {
     if (req.cookies.session_user) {
-        return res.redirect('/perfil');
+        return res.redirect('/perfil')
     }
-    res.render('register')
+    res.render('register', {
+        active: {
+            registro: true
+        }
+    })
 })
 
 app.post('/register', async (req, res) => {
@@ -146,9 +157,13 @@ app.post('/register', async (req, res) => {
 // Login
 app.get('/login', (req, res) => {
     if (req.cookies.session_user) {
-        return res.redirect('/perfil');
+        return res.redirect('/perfil')
     }
-    res.render('login')
+    res.render('login', {
+        active: {
+            acceso: true
+        }
+    })
 })
 
 app.post('/login', async (req, res) => {
@@ -189,12 +204,10 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
             return res.redirect('/login')
         }
 
-       
         const transacciones = await Transaccion.find({ usuario: username })
             .sort({ fecha: -1 })
             .limit(5) 
 
-      
         const transaccionesPreparadas = transacciones.map(t => ({
             fecha: new Date(t.fecha).toLocaleString("es-CL"),
             monto: t.monto.toLocaleString('es-CL'),
@@ -208,6 +221,10 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
             'Fecha no disponible'
 
         res.render('perfil', {
+            layout: 'private',
+            active: {
+                perfil: true
+            },
             user: {
                 nombre: user.nombre || 'N/A',
                 username: user.username,
@@ -228,26 +245,37 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
     }
 })
 
-
-
 // Rutas no protegidas
-app.get('/informacion', (req, res) => { res.render('informacion') })
-app.get('/ruleta-info',  (req, res) => { res.render('ruleta-info') })
+app.get('/informacion', (req, res) => { 
+    res.render('informacion', {
+        active: {
+            info: true
+        }
+    }) 
+})
 
-
+app.get('/ruleta-info', (req, res) => { 
+    res.render('ruleta-info', {
+        active: {
+            reglas: true
+        }
+    }) 
+})
 
 // Rutas protegidas
 app.get('/ruleta-info-duplica', isAuthenticated, (req, res) => {
-    res.render('ruleta-info-duplica')
+    res.render('ruleta-info-duplica', {
+        layout: 'private',
+        active: {
+            reglas: true
+        }
+    })
 })
 
-
-
-//ruta guardado de datos de la ruleta
-
+// ruta guardado de datos de la ruleta
 app.post('/ruleta/guardar-resultado', isAuthenticated, async (req, res) => {
-  const username = req.cookies.session_user;
-  const { numero, color, apuesta, monto, ganancia, gano } = req.body;
+  const username = req.cookies.session_user
+  const { numero, color, apuesta, monto, ganancia, gano } = req.body
   
   try {
     await ResultadoRuleta.create({
@@ -258,53 +286,58 @@ app.post('/ruleta/guardar-resultado', isAuthenticated, async (req, res) => {
       monto,
       ganancia,
       gano
-    });
+    })
     
-    res.json({ success: true });
+    res.json({ success: true })
   } catch (error) {
-    console.error('Error al guardar resultado:', error);
-    res.status(500).json({ success: false, error: 'Error al guardar resultado' });
+    console.error('Error al guardar resultado:', error)
+    res.status(500).json({ success: false, error: 'Error al guardar resultado' })
   }
-});
+})
 
-
-//ruta obtención de ult 5 datos
+// ruta obtención de ult 5 datos
 app.get('/api/ultimos-numeros', isAuthenticated, async (req, res) => {
-  const username = req.cookies.session_user;
+  const username = req.cookies.session_user
   
   try {
     const ultimosNumeros = await ResultadoRuleta.find({ usuario: username })
       .sort({ createdAt: -1 })
       .limit(5)
       .select('numero color gano createdAt')
-      .lean();
+      .lean()
     
-    res.json(ultimosNumeros);
+    res.json(ultimosNumeros)
   } catch (error) {
-    console.error('Error al obtener últimos números:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error('Error al obtener últimos números:', error)
+    res.status(500).json({ error: 'Error interno del servidor' })
   }
-});
+})
 
-
-
-
-//ruleta
+// ruleta
 app.get('/ruleta', isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   try {
       const user = await Usuario.findOne({ username })
       res.render('ruleta', { 
-          saldo: user?.saldo ? user.saldo.toLocaleString('es-CL') : '0'
+        layout: 'private',
+        active: {
+            ruleta: true
+        },
+        saldo: user?.saldo ? user.saldo.toLocaleString('es-CL') : '0'
       })
   } catch (err) {
       console.error('Error al cargar ruleta:', err)
-      res.render('ruleta', { saldo: '0' })
+      res.render('ruleta', { 
+        layout: 'private',
+        active: {
+            ruleta: true
+        },
+        saldo: '0' 
+      })
   }
 })
 
-//transacciones
-
+// transacciones
 app.get('/transacciones', isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
 
@@ -321,16 +354,27 @@ app.get('/transacciones', isAuthenticated, async (req, res) => {
     }))
 
     res.render("transacciones", {
+      layout: 'private',
+      active: {
+          transacciones: true
+      },
       saldo: usuario?.saldo ? usuario.saldo.toLocaleString('es-CL') : '0',
       transacciones: transaccionesPreparadas
     })
   } catch (err) {
     console.error('Error al cargar transacciones:', err)
-    res.send('Error al cargar transacciones.')
+    res.render('transacciones', {
+      layout: 'private',
+      active: {
+          transacciones: true
+      },
+      saldo: '0',
+      transacciones: []
+    })
   }
 })
 
-//para depositar
+// para depositar
 app.post("/depositar", isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   const monto = parseInt(req.body.monto)
@@ -338,14 +382,12 @@ app.post("/depositar", isAuthenticated, async (req, res) => {
   if (monto < 2500) return res.send("Monto mínimo: 2500 Gars.")
 
   try {
-    // actualizar saldo 
     await Usuario.updateOne(
       { username }, 
       { $inc: { saldo: monto } }, 
       { upsert: true }
     )
     
-    // registrar
     await Transaccion.create({ 
       usuario: username, 
       monto, 
@@ -359,8 +401,7 @@ app.post("/depositar", isAuthenticated, async (req, res) => {
   }
 })
 
-
-//retirar
+// retirar
 app.post("/retirar", isAuthenticated, async (req, res) => {
   const username = req.cookies.session_user
   const monto = parseInt(req.body.monto)
@@ -373,13 +414,11 @@ app.post("/retirar", isAuthenticated, async (req, res) => {
       return res.send("Saldo insuficiente.")
     }
 
-    // Actualizar saldo
     await Usuario.updateOne(
       { username }, 
       { $inc: { saldo: -monto } }
     )
     
-    // Registrar 
     await Transaccion.create({ 
       usuario: username, 
       monto, 
@@ -393,40 +432,41 @@ app.post("/retirar", isAuthenticated, async (req, res) => {
   }
 })
 
-//logout
+// logout
 app.get('/logout', isAuthenticated, (req, res) => {
-  res.render('logout') 
+  res.render('logout', {
+    layout: 'private',
+    active: {
+        logout: true
+    }
+  })
 })
 
 app.get('/logout/confirmar', (req, res) => {
-  // borra las cookies al cerrar sesion :P
   res.clearCookie('session_user', { path: '/', httpOnly: true, sameSite: 'lax' })
   console.log('🔸 Sesión cerrada correctamente.')
   res.redirect('/login')
 })
 
-
-//actualizar el saldo de la base de datos 
+// actualizar el saldo de la base de datos 
 app.post('/ruleta/actualizar-saldo', isAuthenticated, async (req, res) => {
-  const username = req.cookies.session_user;
-  const { nuevoSaldo } = req.body;
+  const username = req.cookies.session_user
+  const { nuevoSaldo } = req.body
   
   if (typeof nuevoSaldo !== 'number') {
-    return res.json({ success: false, message: 'nuevoSaldo no es un número' });
+    return res.json({ success: false, message: 'nuevoSaldo no es un número' })
   }
 
   try {
-    await Usuario.updateOne({ username }, { $set: { saldo: nuevoSaldo } });
-    res.json({ success: true });
+    await Usuario.updateOne({ username }, { $set: { saldo: nuevoSaldo } })
+    res.json({ success: true })
   } catch (err) {
-    console.error(err);
-    res.json({ success: false, message: err.message });
+    console.error(err)
+    res.json({ success: false, message: err.message })
   }
-});
-
+})
 
 app.use(express.static('public'))
-
 
 // === Servidor ===
 app.listen(port, () => {

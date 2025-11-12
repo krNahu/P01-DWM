@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocchinko Kitty 🎰</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <nav class="nav-kawaii">
+    <div class="nav-logo">
+      <img src="/casino-logo.jpg" alt="Pocchinko Kitty" class="logo-img">
+      <span>Pocchinko Kitty</span>
+    </div>
+    <div class="nav-links">
+      <a href="/perfil" class="nav-link {{#if active.perfil}}active{{/if}}">Mi perfil</a>
+      <a href="/transacciones" class="nav-link {{#if active.transacciones}}active{{/if}}">Transacciones</a>
+      <a href="/ruleta" class="nav-link {{#if active.ruleta}}active{{/if}}">Mesa de ruleta</a>
+      <a href="/ruleta-info-duplica" class="nav-link {{#if active.reglas}}active{{/if}}">Reglas Ruleta</a>
+      <a href="/logout" class="nav-link {{#if active.logout}}active{{/if}}">Cierre de sesión</a>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    {{{body}}}
+  </div>
+
+</body>
+</html>
