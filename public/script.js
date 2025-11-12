@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const statusEl = document.getElementById('status');
   const wheel = document.getElementById('wheel');
 
-  // === VARIABLES DEL SISTEMA ===
+  // VARIABLES DEL SISTEMA 
   let saldo = parseInt(saldoEl.textContent.replace(/\./g, '')) || 0;
   let apuestaActual = { tipo: null, valor: null, monto: 0 };
   let spinning = false;
   let currentRotation = 0;
   let lastWinIdx = null;
 
-  // === CONFIGURACIÓN DE LA RULETA ===
+  // CONFIGURACIÓN DE LA RULETA 
   const numbersCW = [
     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10,
     5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
@@ -31,25 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const startAngleColors = -180;
   const startAngleNumbers = 90;
 
-  // === TOAST KAWAII ===
-  function mostrarToast(mensaje, color = "#eaf3c8ff") {
-    Toastify({
-      text: mensaje,
-      duration: 2500,
-      gravity: "top",
-      position: "right",
-      close: false,
-      style: {
-        background: color,
-        color: "#f7f7f7ff",
-        borderRadius: "1rem",
-        fontWeight: "bold",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.15)"
-      }
-    }).showToast();
-  }
 
-  // === INICIALIZAR RULETA ===
+  // INICIALIZAR RULETA 
   function inicializarRuleta() {
     paintWheel();
     drawLabels();
@@ -123,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // === SISTEMA DE APUESTAS ===
+  //SISTEMA DE APUESTAS 
   async function cargarUltimosNumeros() {
     try {
       const response = await fetch('/api/ultimos-numeros');
@@ -190,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (isNaN(monto) || monto <= 0 || monto > saldo) {
       mensajeApuesta.textContent = `Monto inválido (máx: ${saldo.toLocaleString('es-CL')} Gars)`;
-      mostrarToast("Monto inválido 💸", "#ff6f61");
       return;
     }
     
@@ -201,14 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
       monto
     };
     mensajeApuesta.textContent = `Apostado ${monto} Gars a ${btn.dataset.valor}`;
-    mostrarToast(`✨ Apuesta colocada: ${monto} Gars en ${btn.dataset.valor}`, "#FF5A9B");
   }
 
-  // === FUNCIÓN GIRAR ===
+  //FUNCIÓN GIRAR 
   async function girar() {
     if (!apuestaActual.tipo) {
       mensajeApuesta.textContent = 'Selecciona una apuesta primero';
-      mostrarToast("Selecciona una apuesta 🎯", "#ffcc66");
       return;
     }
 
@@ -258,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Mostrar resultado
       showResult(numeroGanador);
 
-      // === CALCULAR GANANCIAS ===
+      //CALCULAR GANANCIAS 
       let ganancia = 0;
       let gano = false;
       
@@ -298,11 +278,14 @@ document.addEventListener('DOMContentLoaded', function() {
         saldo += ganancia + apuestaActual.monto;
         resultadoEl.innerHTML = `✅ ¡Ganaste ${ganancia.toLocaleString('es-CL')} Gars!`;
         resultadoEl.style.color = 'green';
-        mostrarToast(`🎉 ¡Ganaste ${ganancia.toLocaleString('es-CL')} Gars!`, "#C6F6C1");
+
+
+        mostrarGifGanador(ganancia);
+
       } else {
         resultadoEl.innerHTML = `❌ Perdiste ${apuestaActual.monto.toLocaleString('es-CL')} Gars`;
         resultadoEl.style.color = 'red';
-        mostrarToast(`😿 Cayó ${numeroGanador} (${colorResultado})`, "#FF5A9B");
+     
       }
 
       saldoEl.textContent = saldo.toLocaleString('es-CL');
@@ -362,7 +345,25 @@ document.addEventListener('DOMContentLoaded', function() {
     wheel.addEventListener('transitionend', onEnd);
   }
 
-  // === INICIALIZACIÓN ===
+
+  //Gif para cuando ganen :D
+function mostrarGifGanador(ganancia) {
+    const gifGanador = document.getElementById('ganador-gif');
+    const ganadorText = gifGanador.querySelector('.ganador-text');
+    
+   
+    ganadorText.textContent = `¡FELICIDADES, GANASTE ${ganancia.toLocaleString('es-CL')} GARS! 🎉`;
+    
+    gifGanador.classList.remove('ganador-hidden');
+    
+  
+    setTimeout(() => {
+        gifGanador.classList.add('ganador-hidden');
+    }, 2000);
+}
+
+
+  // INICIALIZACIÓN 
   inicializarRuleta();
   cargarUltimosNumeros();
 });

@@ -13,8 +13,8 @@ const saltRounds = 10
 
 // === Middlewares ===
 app.use(cookieParser())
-app.use(bodyParser.json()); // Para recibir JSON desde fetch
-app.use(bodyParser.urlencoded({ extended: true })); // Para formularios normales
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.static('public'));
 
 // === Configurar Handlebars ===
@@ -192,7 +192,7 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
        
         const transacciones = await Transaccion.find({ usuario: username })
             .sort({ fecha: -1 })
-            .limit(5) // Solo las últimas 5 para el perfil
+            .limit(5) 
 
       
         const transaccionesPreparadas = transacciones.map(t => ({
@@ -228,14 +228,20 @@ app.get('/perfil', isAuthenticated, async (req, res) => {
     }
 })
 
+
+
 // Rutas no protegidas
 app.get('/informacion', (req, res) => { res.render('informacion') })
 app.get('/ruleta-info',  (req, res) => { res.render('ruleta-info') })
+
+
 
 // Rutas protegidas
 app.get('/ruleta-info-duplica', isAuthenticated, (req, res) => {
     res.render('ruleta-info-duplica')
 })
+
+
 
 //ruta guardado de datos de la ruleta
 
@@ -260,6 +266,7 @@ app.post('/ruleta/guardar-resultado', isAuthenticated, async (req, res) => {
     res.status(500).json({ success: false, error: 'Error al guardar resultado' });
   }
 });
+
 
 //ruta obtención de ult 5 datos
 app.get('/api/ultimos-numeros', isAuthenticated, async (req, res) => {

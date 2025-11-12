@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>Ruleta - Pocchinko Kitty 🎰</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 <body>
 
@@ -18,7 +16,7 @@
       <a href="/perfil">Mi Perfil</a>
       <a href="/transacciones">Transacciones</a>
       <a href="/ruleta" class="active">Mesa de Ruleta</a>
-      <a href="/ruleta-info-duplica">Info ruleta</a>
+      <a href="/ruleta-info-duplica">Reglas Ruleta</a>
       <a href="/logout">Cierre de sesión</a>
     </div>
   </nav>
@@ -27,10 +25,10 @@
   <main class="app">
     <div class="layout-ruleta">
       
-      <!-- Panel Izquierdo -->
+
       <div class="panel-izquierdo-ruleta">
         
-        <!-- Card de Saldo -->
+       
 
         <div class="cuadrado-ruleta">
           <h3> Estado de Juego: </h3>
@@ -39,7 +37,7 @@
           <p>Saldo 💰</p>
         </div>
 
-        <!-- Card de Últimos Números -->
+
         <div class="cuadrado-ruleta">
           <div class="ultimos-numeros-container-ruleta h3 ">
             <h3>Últimos 5 números</h3>
@@ -55,12 +53,11 @@
 
       </div>
 
-      <!-- Contenido Central -->
       <div class="contenido-central-ruleta">
 
 
 
-        <div class="roulette-wrap">
+  <div class="roulette-wrap">
   
   <img src="borde.png" alt="Marco decorativo" class="ruleta-marco">
   
@@ -140,10 +137,9 @@
 
       </div>
 
-      <!-- Panel Derecho -->
+    
       <div class="panel-derecho-ruleta">
         
-        <!-- Card de Guía Kawaii -->
         <div class="cuadrado-ruleta">
           <h3>🎯 Guía </h3>
           <div class="guia-item-ruleta">
@@ -173,16 +169,17 @@
     </div>
   </main>
 
-  <script>
-    function mostrarToast(mensaje) {
-      const div = document.createElement('div');
-      div.className = 'toast';
-      div.textContent = mensaje;
-      document.body.appendChild(div);
-      setTimeout(() => div.remove(), 3000);
-    }
-  </script>
+
+<div id="ganador-gif" class="ganador-hidden">
+  <div class="ganador-content">
+    <img src="/pocchaco.gif" alt="¡Ganaste!" class="ganador-image">
+    <div class="ganador-text">¡FELICIDADES, GANASTE! 🎉</div>
+  </div>
+</div>
+
+
 
   <script src="/script.js"></script>
+
 </body>
 </html>
