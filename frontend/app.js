@@ -6,7 +6,7 @@ const path = require('path');
 const axios = require('axios'); // Asegúrate de tener instalado: npm install axios
 
 const app = express();
-const port = 80; 
+const port = 8080; 
 const API_URL = 'http://localhost:3000/api'; 
 
 // Middlewares
