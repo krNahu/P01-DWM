@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   
-  // === CONFIGURACIÓN GLOBAL ===
-  // IMPORTANTE: Asegúrate de definir esta variable en tu vista Handlebars antes de cargar el script
-  // <script> window.CURRENT_USER = "{{username}}"; </script>
+
   const username = window.CURRENT_USER || null;
   const API_URL = 'http://localhost:3000/api'; // Dirección del backend
 
-  // === ELEMENTOS DEL SISTEMA ===
+
   const saldoEl = document.querySelector("#saldo");
   const montoEl = document.getElementById('montoApuesta');
   const btnGirar = document.getElementById('btnGirar');
@@ -16,15 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const statusEl = document.getElementById('status');
   const wheel = document.getElementById('wheel');
 
-  // === VARIABLES DEL SISTEMA ===
-  // Leemos el saldo inicial del texto, limpiando puntos si es necesario
+
   let saldo = parseInt(saldoEl.textContent.replace(/\./g, '')) || 0;
   let apuestaActual = { tipo: null, valor: null, monto: 0 };
   let spinning = false;
   let currentRotation = 0;
   let lastWinIdx = null;
 
-  // === CONFIGURACIÓN DE LA RULETA (MATH) ===
   const numbersCW = [
     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10,
     5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
@@ -89,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Utilidad visual para mostrar el chip del resultado
+  
   function showResult(n){
     if (typeof n === 'string') {
       statusEl.innerHTML = n;
@@ -106,23 +102,44 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // === SISTEMA DE CARGA DE DATOS (FETCH AL BACKEND) ===
+
+  function actualizarHistorialVisual(numero) {
+    const contenedor = document.getElementById('ultimos-numeros');
+    if (!contenedor) return;
+
+    // 1. Determinar color y clase
+    const colorClass = numero === 0 ? 'verde' : (isRed(numero) ? 'rosado' : 'morado');
+
+    // 2. Crear la bolita nueva
+    const nuevoElemento = document.createElement('div');
+    nuevoElemento.className = `numero-ruleta numero-${colorClass}`;
+    nuevoElemento.textContent = numero;
+    
+    // Pequeña animación de entrada (opcional)
+    nuevoElemento.style.animation = 'aparecer 0.5s ease-out';
+
+    // 3. Insertar lógica
+    // Buscamos si hay placeholders (los guiones '-')
+    const placeholders = contenedor.querySelectorAll('.numero-placeholder');
+    
+    if (placeholders.length > 0) {
+        // Si hay guiones, insertamos al principio y borramos el último guion
+        contenedor.insertBefore(nuevoElemento, contenedor.firstChild);
+        contenedor.lastElementChild.remove();
+    } else {
+        // Si ya está lleno de números, insertamos al principio y borramos el último número real
+        contenedor.insertBefore(nuevoElemento, contenedor.firstChild);
+        if (contenedor.children.length > 5) {
+            contenedor.lastElementChild.remove();
+        }
+    }
+  }
+
+
   async function cargarUltimosNumeros() {
-    if (!username) return; // Si no hay usuario logueado, no carga
+    if (!username) return; 
 
     try {
-      // Nota: Aquí llamamos al endpoint del Backend
-      const response = await fetch(`${API_URL}/user/${username}`);
-      // Asumimos que el backend devuelve { user: {...}, transacciones: [...], ultimosJuegos: [...] }
-      // Si tu endpoint es distinto, ajusta aquí.
-      // Para simplificar, usaremos el endpoint de ultimos numeros si lo tienes separado
-      // O usaremos el endpoint que creaste: /api/ultimos-numeros (pero ahora vive en puerto 3000)
-      
-      // Ajuste para la estructura sugerida:
-      // Vamos a asumir que tienes una ruta específica o extraemos del perfil.
-      // Si no, puedes dejar esto vacío o implementar la ruta en el backend.
-      
-      // Simularemos que el backend tiene esta ruta específica:
       const historialResponse = await fetch(`${API_URL}/historial/${username}`); 
       if (!historialResponse.ok) return;
 
@@ -161,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // === INTERACCIÓN DE BOTONES ===
+
 
   // Crear botones internos 0–36
   for (let i = 0; i <= 36; i++) {
@@ -203,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
     mensajeApuesta.textContent = `Apostado ${monto} Gars a ${btn.dataset.valor}`;
   }
 
-  // === LÓGICA CORE: GIRAR CON BACKEND ===
+
   async function girar() {
     if (!username) {
         mensajeApuesta.textContent = 'Error de sesión. Recarga la página.';
@@ -222,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
     mensajeApuesta.textContent = '';
     
     try {
-        // 1. SOLICITUD AL BACKEND (Puerto 3000)
         const response = await fetch(`${API_URL}/ruleta/girar`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -250,64 +266,50 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. CALCULAR ANIMACIÓN PARA EL NÚMERO GANADOR (DETERMINADO POR EL SERVER)
         const numeroGanador = data.numeroGanador; // Viene del backend
         
-        // Lógica inversa: ¿Dónde está ese número en el array?
         const idx = numbersCW.indexOf(numeroGanador);
         
         // Calculamos el ángulo objetivo.
-        // La rueda tiene 'seg' grados por número.
-        // Queremos que el número quede arriba (bajo el puntero).
-        // Ajustamos con startAngleColors para coincidir con tu sistema de coordenadas.
+        const extraTurns = 5 * 360; 
+        const randomOffset = (Math.random() - 0.5) * (seg * 0.6); 
         
-        const extraTurns = 5 * 360; // 5 vueltas completas para emoción
-        const randomOffset = (Math.random() - 0.5) * (seg * 0.6); // Pequeña variabilidad dentro de la casilla
+      
+const targetAngle = -(idx * seg) - startAngleColors - (seg / 2);
         
-        // El ángulo "base" donde está el número actualmente (sin rotación)
-        // Nota: Esta fórmula depende de cómo pintaste el gradiente cónico.
-        // Si el índice 0 está en 0 grados, rotar -index * seg lo lleva al origen.
-        // Ajustamos la dirección de giro y el offset inicial.
-        
-        const targetAngle = -(idx * seg) - startAngleColors; 
-        
-        // Calculamos la rotación final total asegurando que sea mayor a la actual
-        // para que gire en sentido horario (o el que defina tu CSS transition)
         let nextRotation = currentRotation + extraTurns;
         
-        // Ajuste fino para caer en el targetAngle
-        // (nextRotation % 360) es donde estamos visualmente.
-        // Queremos llegar a (targetAngle % 360).
-        
         const currentMod = nextRotation % 360;
-        const targetMod = (targetAngle % 360 + 360) % 360; // Normalizar positivo
+        const targetMod = (targetAngle % 360 + 360) % 360; 
         
         let diff = targetMod - currentMod;
-        if (diff < 0) diff += 360; // Asegurar giro positivo
+        if (diff < 0) diff += 360; 
         
         const totalRotation = nextRotation + diff + randomOffset;
 
-        // 3. EJECUTAR ANIMACIÓN CSS
         const duration = 4; // segundos
         wheel.style.transition = `transform ${duration}s cubic-bezier(.12,.63,.16,1)`;
         wheel.style.transform = `rotate(${totalRotation}deg)`;
         currentRotation = totalRotation; // Guardar estado para la próxima
 
-        // 4. AL TERMINAR LA ANIMACIÓN
+  
         const onEnd = () => {
           wheel.removeEventListener('transitionend', onEnd);
           wheel.classList.remove('girando');
 
-          // Marcar visualmente el número
+          
           const labels = wheel.querySelectorAll('.label');
           if (lastWinIdx !== null && labels[lastWinIdx]) {
             labels[lastWinIdx].classList.remove('win');
           }
-          // El índice visual puede diferir ligeramente por el offset, pero sabemos el ganador real
           if (labels[idx]) labels[idx].classList.add('win');
           lastWinIdx = idx;
 
           // Mostrar info
           showResult(numeroGanador);
 
-          // 5. ACTUALIZAR UI CON DATOS DEL BACKEND
+ 
+          actualizarHistorialVisual(numeroGanador);
+
+
           if (data.gano) {
             saldoEl.textContent = data.nuevoSaldo.toLocaleString('es-CL');
             resultadoEl.innerHTML = `✅ ¡Ganaste ${data.ganancia.toLocaleString('es-CL')} Gars!`;
@@ -319,17 +321,14 @@ document.addEventListener('DOMContentLoaded', function() {
             resultadoEl.style.color = 'red';
           }
           
-          // Actualizar variable local de saldo
+   
           saldo = data.nuevoSaldo;
 
-          // Resetear estados
+
           apuestaActual = { tipo: null, valor: null, monto: 0 };
           document.querySelectorAll('.apuesta-seleccionada').forEach(b => b.classList.remove('apuesta-seleccionada'));
           btnGirar.disabled = false;
           spinning = false;
-          
-          // Actualizar historial visualmente
-          cargarUltimosNumeros();
         };
 
         wheel.addEventListener('transitionend', onEnd);
@@ -344,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // === EFECTOS VISUALES EXTRA ===
+
   function mostrarGifGanador(ganancia) {
     const gifGanador = document.getElementById('ganador-gif');
     if(!gifGanador) return;
@@ -361,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
 
-  // === INICIALIZACIÓN FINAL ===
+
   inicializarRuleta();
   cargarUltimosNumeros();
 });
