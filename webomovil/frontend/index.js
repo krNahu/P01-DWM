@@ -150,13 +150,13 @@ app.get('/perfil', verificarSesion, async (req, res) => {
             active: { perfil: true },
             user: data.user,
             saldo: data.user.saldo.toLocaleString('es-CL'),
-            // Usamos el helper para que se vea bien la fecha y montos
             transacciones: formatearTransacciones(data.transacciones),
-            // Datos estadísticos simulados o calculados
-            partidasJugadas: data.ultimosJuegos.length * 5, // Simulado
-            rondasGanadas: data.ultimosJuegos.filter(j => j.gano).length,
-            mayorGanancia: "Variado",
-            tiempoJuego: "Calculando..."
+            
+            // === AQUÍ CONECTAMOS LAS ESTADÍSTICAS REALES ===
+            partidasJugadas: data.estadisticas.totalPartidas, 
+            rondasGanadas: data.estadisticas.totalGanadas,
+            mayorGanancia: data.estadisticas.mayorGanancia.toLocaleString('es-CL') + " Gars",
+            tiempoJuego: data.estadisticas.tiempoEstimado
         });
     } catch (e) {
         console.error(e);

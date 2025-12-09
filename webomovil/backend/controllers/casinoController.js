@@ -10,27 +10,55 @@ const isRed = (n) => redSet.has(n);
 const isGreen = (n) => n === 0;
 
 // 1. OBTENER DATOS (Perfil + Historial + Saldo)
+// 1. OBTENER DATOS (Perfil + Historial + ESTADÍSTICAS REALES)
 exports.getDatosUsuario = async (req, res) => {
     try {
         const username = req.params.username;
         const user = await Usuario.findOne({ username });
         if(!user) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-        // Traemos las últimas 10 transacciones financieras
-        const transacciones = await Transaccion.find({ usuario: username })
-            .sort({ fecha: -1 })
-            .limit(10);
-        
-        // [IMPORTANTE] Traemos los últimos 5 resultados de la ruleta para el historial visual
-        const ultimosJuegos = await ResultadoRuleta.find({ usuario: username })
-            .sort({ createdAt: -1 })
-            .limit(5);
+        // Traemos transacciones y últimos juegos (como antes)
+        const transacciones = await Transaccion.find({ usuario: username }).sort({ fecha: -1 }).limit(10);
+        const ultimosJuegos = await ResultadoRuleta.find({ usuario: username }).sort({ createdAt: -1 }).limit(5);
 
-        res.json({ user, transacciones, ultimosJuegos });
+        // === CÁLCULOS ESTADÍSTICOS REALES ===
+        
+        // 1. Contar total de partidas jugadas
+        const totalPartidas = await ResultadoRuleta.countDocuments({ usuario: username });
+        
+        // 2. Contar cuántas ganó
+        const totalGanadas = await ResultadoRuleta.countDocuments({ usuario: username, gano: true });
+        
+        // 3. Buscar la jugada con mayor ganancia
+        const mejorJugada = await ResultadoRuleta.findOne({ usuario: username, gano: true })
+            .sort({ ganancia: -1 }); // Ordenar de mayor a menor
+        
+        const mayorGanancia = mejorJugada ? mejorJugada.ganancia : 0;
+
+        // 4. Estimar tiempo de juego (Ej: 15 segundos por giro)
+        const segundosTotales = totalPartidas * 15; 
+        const tiempoEstimado = segundosTotales < 60 
+            ? `${segundosTotales} seg` 
+            : `${Math.floor(segundosTotales / 60)} min`;
+
+        res.json({ 
+            user, 
+            transacciones, 
+            ultimosJuegos,
+            // Enviamos el paquete de estadísticas nuevas
+            estadisticas: {
+                totalPartidas,
+                totalGanadas,
+                mayorGanancia,
+                tiempoEstimado
+            }
+        });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 // 2. DEPOSITAR Y RETIRAR (Gestión de saldo)
 exports.nuevaTransaccion = async (req, res) => {
@@ -156,7 +184,9 @@ exports.girarRuleta = async (req, res) => {
             color: colorGanador,
             apuesta: `${apuestaTipo}:${apuestaValor}`,
             monto: monto,
-            ganancia: gano ? (ganancia - monto) : 0, // Guardamos ganancia neta para estadísticas
+          
+ganancia: gano ? ganancia : 0, 
+
             gano: gano
         });
 
@@ -173,5 +203,24 @@ exports.girarRuleta = async (req, res) => {
     } catch (error) {
         console.error("Error en ruleta:", error);
         res.status(500).json({ success: false, error: 'Error interno del servidor' });
+    }
+};
+
+// ... (aquí arriba está todo tu código de girarRuleta, etc)
+
+// 4. OBTENER SOLO HISTORIAL (Esta es la función que te falta)
+exports.obtenerHistorial = async (req, res) => {
+    try {
+        const username = req.params.username;
+        // Importante: Asegúrate de tener importado ResultadoRuleta arriba del todo
+        const ResultadoRuleta = require('../models/ResultadoRuleta'); 
+
+        const ultimosJuegos = await ResultadoRuleta.find({ usuario: username })
+            .sort({ createdAt: -1 })
+            .limit(5);
+
+        res.json(ultimosJuegos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
