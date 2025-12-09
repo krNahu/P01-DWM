@@ -1,0 +1,68 @@
+
+    <main class="perfil-main">
+        <div class="perfil-wrapper">
+            <div class="perfil-container">
+                <section class="cuadro-datos card-kawaii">
+                    <h2>Mis datos 👤</h2>
+                    <div class="dato-item">
+                        <h4>Nombre:</h4>
+                        <h5>{{user.nombre}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Usuario:</h4> 
+                        <h5>{{user.username}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Correo electrónico:</h4>
+                        <h5>{{user.correo}}</h5>
+                    </div>
+                    <div class="dato-item">
+                        <h4>Fecha de registro:</h4>
+                        <h5>{{user.fechaRegistro}}</h5>
+                    </div>
+                </section>
+
+                <div class="columna-derecha">
+                    <section class="cuadro-saldo card-kawaii">
+                        <h2>Mi saldo 💰</h2>
+                        <b><p>{{saldo}} Gars 🐾</p></b>
+                    </section>
+                    <section class="cuadro-estadisticas card-kawaii">
+                        <h2>Estadísticas de juego 📊</h2>
+                        <p>Partidas jugadas: {{partidasJugadas}}</p>
+                        <p>Rondas ganadas: {{rondasGanadas}}</p>
+                        <p>Mayor ganancia: {{mayorGanancia}} Gars</p>
+                        <p>Tiempo de juego total: {{tiempoJuego}}</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <section class="movimientos-section">
+            <h2>Últimos movimientos 📝</h2>
+            {{#if transacciones.length}}
+            <table class="tabla-movimientos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {{#each transacciones}}
+              <tr>
+                <td>{{this.fecha}}</td>
+                <td class="{{this.tipoClase}}">
+                  {{#if this.esDeposito}}+{{else}}-{{/if}}{{this.monto}} Gars 🐾
+                </td>
+                <td>{{this.tipo}}</td>
+              </tr>
+            {{/each}}
+                </tbody>
+            </table>
+        {{else}}
+        <p>No tienes movimientos registrados todavía 😺</p>
+      {{/if}}
+    </section>
+    </main>

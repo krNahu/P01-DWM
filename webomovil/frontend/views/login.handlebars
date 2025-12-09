@@ -1,0 +1,34 @@
+<main>
+  <section class="card-kawaii">
+    <h1>Acceso al Casino 🎰</h1>
+    <p>¡Bienvenido de vuelta! Ingresa y diviértete</p>
+    
+    {{#if error}}
+      <div class="error-message">
+        {{error}}
+      </div>
+    {{/if}}
+    
+    <form action="/login" method="POST" class="form-layout">
+      <label for="username">Nombre de Usuario</label>
+      <input type="text" id="username" name="username" placeholder="Usuario" required value="{{username}}">
+      
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" required>
+      
+      <div class="form-options">
+        <label>
+          <input type="checkbox" name="remember"> Recordarme
+        </label>
+        <a href="#">¿Olvidaste tu contraseña?</a>
+      </div>
+      
+      <button type="submit">Ingresar al Casino 💖</button>
+    </form>
+    
+    <p class="register-text">
+      ¿No tienes cuenta?
+      <a href="/register">Regístrate aquí</a>
+    </p>
+  </section>
+</main>
