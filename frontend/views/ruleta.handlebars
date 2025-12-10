@@ -1,159 +1,159 @@
-
-
- <h1>Ruleta Europea 💖</h1>
-  <main class="app">
+<h1>Ruleta Europea 💖</h1>
+<main class="app">
     <div class="layout-ruleta">
-      
 
-      <div class="panel-izquierdo-ruleta">
-        
-       
+        <div class="panel-izquierdo-ruleta">
 
-        <div class="cuadrado-ruleta">
-          <h3> Estado de Juego: </h3>
-          <div id="resultado" class="esperando">  Esperando...</div>
-          <h2>$<span id="saldo">{{saldo}}</span> ✨</h2>
-          <p>Saldo 💰</p>
-        </div>
-
-
-        <div class="cuadrado-ruleta">
-          <div class="ultimos-numeros-container-ruleta h3 ">
-            <h3>Últimos 5 números</h3>
-            <div id="ultimos-numeros" class="ultimos-numeros">
-              <div class="numero-placeholder">-</div>
-              <div class="numero-placeholder">-</div>
-              <div class="numero-placeholder">-</div>
-              <div class="numero-placeholder">-</div>
-              <div class="numero-placeholder">-</div>
+            <div class="cuadrado-ruleta">
+                <h3> Estado de Juego: </h3>
+                <div id="resultado" class="esperando"> Esperando...</div>
+                <h2>$<span id="saldo">{{saldo}}</span> ✨</h2>
+                <p>Saldo 💰</p>
             </div>
-          </div>
-        </div>
 
-      </div>
-
-      <div class="contenido-central-ruleta">
-
-
-
-  <div class="roulette-wrap">
-  
-  <img src="/images/centro.png" alt="Centro" class="ruleta-centro">
-  <img src="/images/borde.png" alt="Marco decorativo" class="ruleta-marco">
-  <div class="pointer"></div>
-  <div id="wheel" class="wheel"></div>
-
-</div>
-
-        <div class="status-ruleta">
-          <div id="status">Listo para jugar</div>
-        </div>
-
-        <div class="apuesta-control">
-          <label for="montoApuesta">Monto a Apostar:</label>
-          <input type="number" id="montoApuesta" value="1000" min="1">
-        </div>
-
-        <div class="apuestas-internas"></div>
-        
-        <div class="apuestas-externas">
-          <div class="fila-apuestas">
-            <button class="apuesta-color" data-apuesta-tipo="color" data-valor="rosado">APOSTAR ROSADO (x2)</button>
-            <button class="apuesta-color" data-apuesta-tipo="color" data-valor="morado">APOSTAR MORADO (x2)</button>
-          </div>
-          <div class="fila-apuestas">
-            <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="par">APOSTAR PAR (x2)</button>
-            <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="impar">APOSTAR IMPAR (x2)</button>
-          </div>
-          <div class="fila-apuestas">
-            <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="bajo">APOSTAR 1-18 (x2)</button>
-            <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="alto">APOSTAR 19-36 (x2)</button>
-          </div>
-          <div class="fila-apuestas">
-            <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="1">APOSTAR 1-12 (x3)</button>
-            <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="2">APOSTAR 13-24 (x3)</button>
-            <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="3">APOSTAR 25-36 (x3)</button>
-          </div>
-        </div>
-
-        <div class="apuestas-multiples">
-          <h3>Apuestas Múltiples</h3>
-          <div class="caballos">
-            <h4>Apuestas Caballo</h4>
-            <div class="botones-caballos">
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-1">0-1 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-2">0-2 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-3">0-3 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="1-2">1-2 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="2-3">2-3 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="3-4">3-4 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="4-5">4-5 (x17)</button>
-              <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="5-6">5-6 (x17)</button>
+            <div class="cuadrado-ruleta">
+                <div class="ultimos-numeros-container-ruleta h3">
+                    <h3>Últimos 5 números</h3>
+                    <div id="ultimos-numeros" class="ultimos-numeros">
+                        <div class="numero-placeholder">-</div>
+                        <div class="numero-placeholder">-</div>
+                        <div class="numero-placeholder">-</div>
+                        <div class="numero-placeholder">-</div>
+                        <div class="numero-placeholder">-</div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="transversales">
-            <h4>Apuestas Transversal</h4>
-            <div class="botones-transversales">
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="1-2-3">1-2-3 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="4-5-6">4-5-6 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="7-8-9">7-8-9 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="10-11-12">10-11-12 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="13-14-15">13-14-15 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="16-17-18">16-17-18 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="19-20-21">19-20-21 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="22-23-24">22-23-24 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="25-26-27">25-26-27 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="28-29-30">28-29-30 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="31-32-33">31-32-33 (x11)</button>
-              <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="34-35-36">34-35-36 (x11)</button>
+
+            <div class="cuadrado-ruleta">
+                <h3>Apuestas Rápidas</h3>
+                <div class="apuestas-externas">
+                    <div class="fila-apuestas">
+                        <button class="apuesta-color" data-apuesta-tipo="color" data-valor="rosado">APOSTAR ROSADO (x2)</button>
+                        <button class="apuesta-color" data-apuesta-tipo="color" data-valor="morado">APOSTAR MORADO (x2)</button>
+                    </div>
+                    <div class="fila-apuestas">
+                        <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="par">APOSTAR PAR (x2)</button>
+                        <button class="apuesta-paridad" data-apuesta-tipo="paridad" data-valor="impar">APOSTAR IMPAR (x2)</button>
+                    </div>
+                    <div class="fila-apuestas">
+                        <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="bajo">APOSTAR 1-18 (x2)</button>
+                        <button class="apuesta-rango" data-apuesta-tipo="rango" data-valor="alto">APOSTAR 19-36 (x2)</button>
+                    </div>
+                    <div class="fila-apuestas">
+                        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="1">APOSTAR 1-12 (x3)</button>
+                        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="2">APOSTAR 13-24 (x3)</button>
+                        <button class="apuesta-docena" data-apuesta-tipo="docena" data-valor="3">APOSTAR 25-36 (x3)</button>
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-        
 
-      </div>
+        <div class="contenido-central-ruleta">
 
-    
-    <div class="panel-derecho-ruleta">
-  
-  <div class="cuadrado-ruleta">
-    <h3>🎯 Guía </h3>
-    <div class="guia-item-ruleta">
-      <span class="guia-icon-ruleta">🎯</span>
-      <span class="guia-texto-ruleta">Número exacto: <strong>35:1</strong></span>
-    </div>
-    <div class="guia-item-ruleta">
-      <span class="guia-icon-ruleta">💖</span>
-      <span class="guia-texto-ruleta">Rosa/Morado: <strong>1:1</strong></span>
-    </div>
-    <div class="guia-item-ruleta">
-      <span class="guia-icon-ruleta">✨</span>
-      <span class="guia-texto-ruleta">Par/Impar: <strong>1:1</strong></span>
-    </div>
-    <div class="guia-item-ruleta">
-      <span class="guia-icon-ruleta">🌟</span>
-      <span class="guia-texto-ruleta">Docenas: <strong>2:1</strong></span>
-    </div>
-    <div class="guia-item-ruleta">
-      <span class="guia-icon-ruleta">🌸</span>
-      <a href="/ruleta-info-duplica" class="guia-link-ruleta">Ver todas las reglas →</a>
-    </div>
-  </div>
-  
- <div class="cuadrado-ruleta">
-    <button id="btnGirar" class="btn">🎰 GIRAR RULETA</button>
-    <div id="mensajeApuesta" class="guia-texto-ruleta" >Selecciona tu apuesta y monto.</div>
-  </div>
-</div>
+            <div class="roulette-wrap">
+                <img src="/images/centro.png" alt="Centro" class="ruleta-centro">
+                <img src="/images/borde.png" alt="Marco decorativo" class="ruleta-marco">
+                <div class="pointer"></div>
+                <div id="wheel" class="wheel"></div>
+            </div>
 
-<div id="ganador-gif" class="ganador-hidden">
-  <div class="ganador-content">
-    <img src="/images/pocchaco.gif" alt="¡Ganaste!" class="ganador-image">
-    <div class="ganador-text">¡FELICIDADES, GANASTE! 🎉</div>
-  </div>
-</div>
+            <div class="status-ruleta">
+                <div id="status">Listo para jugar</div>
+            </div>
+
+            <div class="apuesta-control">
+                <label for="montoApuesta">Monto a Apostar:</label>
+                <input type="number" id="montoApuesta" value="1000" min="1">
+            </div>
+
+            <div class="apuestas-internas"></div>
+
+        </div>
+
+
+        <div class="panel-derecho-ruleta">
+
+            <div class="cuadrado-ruleta">
+                <h3>🎯 Guía </h3>
+                <div class="guia-item-ruleta">
+                    <span class="guia-icon-ruleta">🎯</span>
+                    <span class="guia-texto-ruleta">Número exacto: <strong>35:1</strong></span>
+                </div>
+                <div class="guia-item-ruleta">
+                    <span class="guia-icon-ruleta">💖</span>
+                    <span class="guia-texto-ruleta">Rosa/Morado: <strong>1:1</strong></span>
+                </div>
+                <div class="guia-item-ruleta">
+                    <span class="guia-icon-ruleta">✨</span>
+                    <span class="guia-texto-ruleta">Par/Impar: <strong>1:1</strong></span>
+                </div>
+                <div class="guia-item-ruleta">
+                    <span class="guia-icon-ruleta">🌟</span>
+                    <span class="guia-texto-ruleta">Docenas: <strong>2:1</strong></span>
+                </div>
+                <div class="guia-item-ruleta">
+                    <span class="guia-icon-ruleta">🌸</span>
+                    <a href="/ruleta-info-duplica" class="guia-link-ruleta">Ver todas las reglas →</a>
+                </div>
+            </div>
+
+            <div class="cuadrado-ruleta">
+                <button id="btnGirar" class="btn">🎰 GIRAR RULETA</button>
+                <div id="mensajeApuesta" class="guia-texto-ruleta">Selecciona tu apuesta y monto.</div>
+            </div>
+
+            <div class="cuadrado-ruleta">
+                <div class="apuestas-multiples">
+                    <h3>Apuestas Múltiples</h3>
+                    <div class="caballos">
+                        <h4>Caballo (x17)</h4>
+                        <div class="botones-caballos">
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-1">0-1</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-2">0-2</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="0-3">0-3</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="1-2">1-2</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="2-3">2-3</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="3-4">3-4</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="4-5">4-5</button>
+                            <button class="apuesta-caballo" data-apuesta-tipo="caballo" data-valor="5-6">5-6</button>
+                        </div>
+                    </div>
+                    <div class="transversales">
+                        <h4>Transversal (x11)</h4>
+                        <div class="botones-transversales">
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="1-2-3">1-2-3</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="4-5-6">4-5-6</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="7-8-9">7-8-9</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="10-11-12">10-12</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="13-14-15">13-15</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="16-17-18">16-18</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="19-20-21">19-21</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="22-23-24">22-24</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="25-26-27">25-27</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="28-29-30">28-30</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="31-32-33">31-33</button>
+                            <button class="apuesta-transversal" data-apuesta-tipo="transversal" data-valor="34-35-36">34-36</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="ganador-gif" class="ganador-hidden">
+        <div class="ganador-content">
+            <img src="/images/pocchaco.gif" alt="¡Ganaste!" class="ganador-image">
+            <div class="ganador-text">¡FELICIDADES, GANASTE! 🎉</div>
+        </div>
+    </div>
+
 </main>
 
+<script>
+    window.CURRENT_USER = "{{username}}";
+</script>
 
-  <script src="/js/game.js"></script>
-
+<script src="/script.js"></script>
