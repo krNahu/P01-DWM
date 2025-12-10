@@ -10,35 +10,15 @@ const BACKEND_URL = 'http://54.163.109.159:3000/api';
 
 
 
-
-// === MODO DEPURACIÓN DE ESTÁTICOS ===
-
-// 1. Forzar ruta del CSS para ver si el archivo existe
-app.get('/style.css', (req, res) => {
-    const rutaAbsoluta = path.join(__dirname, 'public', 'style.css');
-    console.log("🔍 Buscando CSS en:", rutaAbsoluta);
-    
-    res.sendFile(rutaAbsoluta, (err) => {
-        if (err) {
-            console.log("❌ ERROR: No encontré el archivo. Verifica la ruta.");
-            res.status(404).send("No encontré el archivo style.css");
-        } else {
-            console.log("✅ ÉXITO: Archivo enviado correctamente.");
-        }
-    });
-});
-
-// 2. Servir el resto de la carpeta public (Imágenes, scripts)
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 
 
-// === CONFIGURACIÓN ===
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true })); // Para leer formularios HTML
+app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
-//app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.engine('handlebars', engine({
     defaultLayout: 'public',
@@ -47,7 +27,7 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
-// === MIDDLEWARE DE SESIÓN ===
+
 const verificarSesion = (req, res, next) => {
     if (req.cookies.username) {
         req.user = req.cookies.username;
@@ -56,8 +36,7 @@ const verificarSesion = (req, res, next) => {
     res.redirect('/login');
 };
 
-// === HELPER: FORMATEAR TRANSACCIONES ===
-// Convierte datos crudos del backend en datos bonitos para Handlebars
+
 const formatearTransacciones = (lista) => {
     if (!lista) return [];
     return lista.map(t => ({
@@ -69,9 +48,7 @@ const formatearTransacciones = (lista) => {
     }));
 };
 
-// =============================
-//      RUTAS PÚBLICAS
-// =============================
+
 
 app.get('/', (req, res) => {
     if (req.cookies.username) return res.redirect('/perfil');
@@ -86,7 +63,6 @@ app.get('/index', (req, res) => {
 app.get('/informacion', (req, res) => res.render('informacion', { active: { info: true } }));
 app.get('/ruleta-info', (req, res) => res.render('ruleta-info', { active: { reglas: true } }));
 
-// --- LOGIN Y REGISTRO ---
 
 app.get('/login', (req, res) => {
     if (req.cookies.username) return res.redirect('/perfil');
@@ -97,7 +73,7 @@ app.post('/login', async (req, res) => {
     try {
         const response = await axios.post(`${BACKEND_URL}/login`, req.body);
         if (response.data.success) {
-            // Guardamos cookie y redirigimos
+
             res.cookie('username', req.body.username, { httpOnly: true });
             res.redirect('/perfil');
         } else {
@@ -135,11 +111,7 @@ app.get('/logout/confirmar', (req, res) => {
     res.redirect('/login');
 });
 
-// =============================
-//      RUTAS PRIVADAS
-// =============================
 
-// 1. PERFIL
 app.get('/perfil', verificarSesion, async (req, res) => {
     try {
         const { data } = await axios.get(`${BACKEND_URL}/user/${req.user}`);
@@ -151,7 +123,6 @@ app.get('/perfil', verificarSesion, async (req, res) => {
             saldo: data.user.saldo.toLocaleString('es-CL'),
             transacciones: formatearTransacciones(data.transacciones),
             
-            // === AQUÍ CONECTAMOS LAS ESTADÍSTICAS REALES ===
             partidasJugadas: data.estadisticas.totalPartidas, 
             rondasGanadas: data.estadisticas.totalGanadas,
             mayorGanancia: data.estadisticas.mayorGanancia.toLocaleString('es-CL') + " Gars",
@@ -163,7 +134,6 @@ app.get('/perfil', verificarSesion, async (req, res) => {
     }
 });
 
-// 2. MESA DE RULETA
 app.get('/ruleta', verificarSesion, async (req, res) => {
     try {
         const { data } = await axios.get(`${BACKEND_URL}/user/${req.user}`);
@@ -171,7 +141,7 @@ app.get('/ruleta', verificarSesion, async (req, res) => {
             layout: 'private',
             active: { ruleta: true },
             saldo: data.user.saldo.toLocaleString('es-CL'),
-            username: req.user // Importante para el script.js
+            username: req.user 
         });
     } catch (e) {
         res.redirect('/login');
@@ -182,7 +152,6 @@ app.get('/ruleta-info-duplica', verificarSesion, (req, res) => {
     res.render('ruleta-info-duplica', { layout: 'private', active: { reglas: true } });
 });
 
-// 3. TRANSACCIONES (VISTA)
 app.get('/transacciones', verificarSesion, async (req, res) => {
     try {
         const { data } = await axios.get(`${BACKEND_URL}/user/${req.user}`);
@@ -199,7 +168,7 @@ app.get('/transacciones', verificarSesion, async (req, res) => {
     }
 });
 
-// 4. PROCESAR DEPÓSITO (POST)
+
 app.post('/depositar', verificarSesion, async (req, res) => {
     try {
         await axios.post(`${BACKEND_URL}/transaccion`, {
@@ -214,7 +183,7 @@ app.post('/depositar', verificarSesion, async (req, res) => {
     }
 });
 
-// 5. PROCESAR RETIRO (POST)
+
 app.post('/retirar', verificarSesion, async (req, res) => {
     try {
         const response = await axios.post(`${BACKEND_URL}/transaccion`, {
@@ -225,7 +194,6 @@ app.post('/retirar', verificarSesion, async (req, res) => {
         
         if(response.data.error) {
             console.log("Error retiro:", response.data.error);
-            // Aquí podrías renderizar la vista con el error, pero por simplicidad redirigimos
         }
         res.redirect('/transacciones');
     } catch (error) {
@@ -234,5 +202,5 @@ app.post('/retirar', verificarSesion, async (req, res) => {
     }
 });
 
-// INICIAR SERVIDOR
+
 app.listen(port, () => console.log(`🌸 Frontend (Pocchinko) corriendo en puerto ${port}`));

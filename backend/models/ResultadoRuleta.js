@@ -5,9 +5,9 @@ const ResultadoRuletaSchema = new mongoose.Schema({
     numero: Number,
     color: String,
     ganancia: Number,
-    apuesta: String, // Ej: "color:rosado" o "numero:32"
+    apuesta: String, 
     monto: Number,
     gano: Boolean
-}, { timestamps: true }); // createdAt guardará la fecha exacta automáticamente
+}, { timestamps: true }); 
 
 module.exports = mongoose.model('ResultadoRuleta', ResultadoRuletaSchema);

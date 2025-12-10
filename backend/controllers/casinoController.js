@@ -117,7 +117,6 @@ exports.girarRuleta = async (req, res) => {
         }
         // Apuesta a Paridad (Par/Impar)
         else if (apuestaTipo === 'paridad') {
-            // El 0 no es ni par ni impar en apuestas de ruleta
             if ((apuestaValor === 'par' && numeroGanador % 2 === 0 && numeroGanador !== 0) ||
                 (apuestaValor === 'impar' && numeroGanador % 2 === 1)) {
                 ganancia = monto * 2;
