@@ -1176,155 +1176,6 @@ section {
   line-height: 1.2;
 }
 
-
-/* === NUEVO DISEÑO COMPACTO (GRILLA) === */
-
-.tablero-control {
-  max-width: 100%;
-  padding: 10px !important;
-}
-
-.divider-kawaii {
-  border: 0;
-  height: 2px;
-  background: var(--pink-light);
-  margin: 15px 0;
-}
-
-/* 1. Header Compacto (Input + Botón Girar en una línea) */
-.apuesta-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  background: var(--yellow-light);
-  padding: 10px;
-  border-radius: 12px;
-}
-
-.apuesta-header input {
-  width: 100px;
-  padding: 5px;
-  margin: 0 !important;
-}
-
-.btn-compact {
-  padding: 8px 20px;
-  font-size: 1rem;
-  background: linear-gradient(180deg, var(--pink-primary), var(--pink-dark));
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-  font-weight: bold;
-  transition: transform 0.1s;
-}
-
-.btn-compact:active {
-  transform: translateY(4px);
-  box-shadow: none;
-}
-
-/* 2. Números (Internas) más compactos */
-.apuestas-internas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 15px;
-}
-
-.apuestas-internas button {
-  width: 32px;
-  height: 32px;
-  font-size: 0.8rem;
-  margin: 0;
-}
-
-/* 3. GRILLA DE APUESTAS EXTERNAS (La magia) */
-.grid-externas {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-/* Estilo base de botones */
-.apuesta-btn {
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: filter 0.2s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.apuesta-btn:hover { filter: brightness(1.1); }
-.apuesta-seleccionada { border: 3px solid #FFD700; transform: scale(1.05); }
-
-/* Colores específicos */
-.btn-rosado { background: var(--ruleta-rojo); }
-.btn-morado { background: var(--ruleta-negro); }
-.btn-azul { background: #6495ED; }
-.btn-teal { background: #20B2AA; }
-.btn-gold { background: #DAA520; }
-
-/* Docenas ocupan todo el ancho en móviles o se ajustan */
-.span-col {
-  grid-column: span 2; /* En móvil ocupan todo el ancho */
-}
-
-/* 4. APUESTAS ESPECIALES (Lado a Lado) */
-.grid-especiales {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Dividir en 2 columnas */
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.4);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.grupo-especial h4 {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  color: var(--pink-dark);
-}
-
-.grid-mini {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-  gap: 4px;
-}
-
-.btn-mini {
-  background: var(--pink-light);
-  color: var(--pink-dark);
-  font-size: 0.7rem;
-  padding: 4px;
-  border: 1px solid var(--pink-primary);
-}
-
-.btn-mini:hover {
-  background: var(--pink-primary);
-  color: white;
-}
-
-/* RESPONSIVE: Ajustes para pantallas grandes */
-@media (min-width: 768px) {
-  .grid-externas {
-    grid-template-columns: repeat(6, 1fr); /* 6 columnas en PC */
-  }
-  
-  .span-col {
-    grid-column: span 2; /* Docenas ocupan 2 espacios de 6 */
-  }
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -1337,3 +1188,58 @@ section {
 }
 
 
+/* =========================================
+   NUEVOS ESTILOS PARA LA REORGANIZACIÓN
+   ========================================= */
+
+/* Ajuste para que las apuestas externas se apilen verticalmente en el panel izquierdo */
+.panel-izquierdo-ruleta .apuestas-externas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel-izquierdo-ruleta .fila-apuestas {
+    flex-direction: column; /* Botones uno debajo del otro */
+    gap: 8px;
+    width: 100%;
+}
+
+.panel-izquierdo-ruleta .apuestas-externas button {
+    width: 100%; /* Que ocupen todo el ancho del panel */
+    margin: 0;   /* Quitamos margen extra */
+    padding: 12px;
+}
+
+/* Ajuste para las apuestas múltiples en el panel derecho */
+.panel-derecho-ruleta .apuestas-multiples {
+    padding: 0; /* Quitamos padding extra para ganar espacio */
+    margin: 0;
+    background: transparent; /* Quitamos el fondo grisáceo si quieres que se vea limpio */
+}
+
+.panel-derecho-ruleta .apuestas-multiples h3,
+.panel-derecho-ruleta .apuestas-multiples h4 {
+    font-size: 1rem; /* Texto un poco más pequeño */
+    margin-bottom: 5px;
+}
+
+.panel-derecho-ruleta .botones-caballos,
+.panel-derecho-ruleta .botones-transversales {
+    gap: 4px; /* Menos espacio entre botones */
+}
+
+/* Hacemos los botones múltiples un poco más compactos */
+.panel-derecho-ruleta .apuesta-caballo,
+.panel-derecho-ruleta .apuesta-transversal {
+    font-size: 0.75rem !important; 
+    padding: 6px 8px !important;
+    flex-grow: 1; /* Para que llenen el espacio disponible */
+}
+
+/* Ajuste Opcional: Centrar mejor el panel central si queda muy vacío */
+.contenido-central-ruleta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

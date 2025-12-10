@@ -6,7 +6,7 @@ const axios = require('axios'); // Asegúrate de tenerlo: npm install axios
 
 const app = express();
 const port = 80; 
-const BACKEND_URL = 'http://localhost:3000/api'; // Dirección de tu backend
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000/api';
 
 
 
