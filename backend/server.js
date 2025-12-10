@@ -3,11 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-// Importar rutas
 const apiRoutes = require('./routes/api');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // Middlewares
 app.use(cors());
@@ -22,7 +21,3 @@ mongoose.connect('mongodb+srv://nociiva:pocchinko@Pocchinko.mseba1s.mongodb.net/
 // Usar las rutas
 app.use('/api', apiRoutes);
 
-// Arrancar
-app.listen(port, () => {
-    console.log(`🔥 Servidor Modular corriendo en http://localhost:${port}`);
-});
